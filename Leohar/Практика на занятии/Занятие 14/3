@@ -1,0 +1,45 @@
+#include <iostream>
+
+class Total_price
+{
+public:
+    void input();
+    void check();
+    void show();
+
+private:
+    double price;
+    static double max_price;
+
+};
+
+double Total_price::max_price = 1000;
+
+int main()
+{
+    Total_price test;
+    test.input();
+    test.show();
+
+    return 0;
+}
+
+void Total_price::input()
+{
+    std::cout << "Введите цену:" << std::endl;
+    std:: cin >> price;
+    check();
+}
+
+void Total_price::check()
+{
+    if (price > Total_price::max_price)
+    {
+        price = Total_price::max_price;
+    }
+}
+
+void Total_price::show()
+{
+    std::cout << price << std::endl;
+}
