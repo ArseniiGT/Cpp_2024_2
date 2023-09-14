@@ -1,0 +1,28 @@
+/*
+Напишите программу, 
+которая запрашивает ввод с клавиатуры 
+трех слов через пробел в одной строке.
+
+Программа должна вставить между словами 
+“.” вместо пробела и вывести на экран.
+
+Пример работы программы:
+Входные данные:
+doma uchi ru
+Выходные данные:
+doma.uchi.ru
+*/ 
+
+#include <iostream>
+#include <string>
+int main()
+{
+    setlocale(LC_ALL, "ru");
+    std::string s1;
+    std::cout << "Введите строку:\n";
+    std::cin >> s1;
+    std::string s2 = " ";
+    std::string s3 = ".";
+    int pos = s1.find(" ", 0);
+    std::cout << pos;
+    s1.replace(pos, 1, s3);
