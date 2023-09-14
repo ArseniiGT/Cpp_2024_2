@@ -1,0 +1,60 @@
+/*
+Задача 1.
+Создайте класс Rectangle 
+с полями width, height 
+с доступом private. 
+Создайте конструктор с аргументами, 
+который инициирует поля переданными значениями аргументов. 
+Создайте дружественную функцию  area, 
+которая возвращает значение площади.
+
+Напишите программу, 
+которая запрашивает ввод с клавиатуры 
+ширины и длины прямоугольника в отдельных строках, 
+создает объект класса Rectangle 
+и инициализирует его введенными значениями. 
+Выведите на экран результат работы функции area.
+*/ 
+
+#include <iostream>
+
+class Rectangle 
+{
+private:
+    int width;
+    int height;
+
+public:
+    Rectangle(int _width, int _height)
+    {
+        std::cout << "Введите длину и ширину" << std::endl;
+        std::cin >> _height ;
+        std::cin >> _width;
+        width = _width;
+        height = _height;
+    }
+
+    // геттер для height
+    int GetHeight() const {
+        return height;
+    }
+    // геттер для width
+    int GetWidth() const {
+        return width;
+    }
+    friend int area(Rectangle&);
+};
+
+int area(Rectangle& test) 
+{
+    int res = test.GetHeight() * test.GetWidth();
+    std::cout << res << std::endl;
+    return res;
+};
+
+int main()
+{
+    setlocale(LC_ALL, "ru");
+    Rectangle k(0,0);
+    area(k);
+}
