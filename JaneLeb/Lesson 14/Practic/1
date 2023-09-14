@@ -1,0 +1,25 @@
+/* 
+Напишите программу, которая спрашивает “Как тебя зовут?”, 
+ждет ввода имени с клавиатуры и выводит “Привет, введенное_имя!”
+
+Пример работы программы:
+Входные данные:
+Как тебя зовут? Саша
+Выходные данные:
+Привет, Саша!
+
+*/ 
+
+#include <iostream>
+#include <string>
+int main()
+{
+    setlocale(LC_ALL, "ru");
+    std::string vopros = "Как тебя зовут?";
+    std::cout << vopros<<"\n";
+    std::string name;
+    std::cin >> name;
+    std::string priv = "Привет, ";
+    std::cout << priv << name << std::endl;
+
+}
