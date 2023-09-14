@@ -1,0 +1,14 @@
+#include <iostream>
+
+
+int main()
+{
+    std::string stroka1, stroka2, stroka3;
+    std::string stroka4 = ".";
+    std::cin >> stroka1;
+    std::cin >> stroka2;
+    std::cin >> stroka3;
+    std::cout << stroka1 + stroka4 + stroka2 + stroka4 + stroka3 << std::endl;
+
+    return 0;
+}
