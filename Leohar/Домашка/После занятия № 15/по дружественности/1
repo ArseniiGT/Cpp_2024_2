@@ -1,0 +1,35 @@
+#include <iostream>
+
+class Rectangle
+{
+public:
+    Rectangle(double width, double height)
+    {
+        this->width = width;
+        this->height = height;
+    };
+    friend double area(Rectangle &value);
+    void show();
+private:
+    double width, height;
+};
+
+int main()
+{
+    double widhtInput, heightInput;
+    std::cout << "Введите ширину прямоугольника:" << std::endl;
+    std::cin >> widhtInput;
+    std::cout << "Введите длину прямоугольника:" << std::endl;
+    std::cin >> heightInput;
+
+    Rectangle exmpl(widhtInput, heightInput);
+
+    std::cout << "Площадь прямоугольника: " << area(exmpl) << std::endl;
+
+    return 0;
+}
+
+double area(Rectangle &value)
+{
+    return value.width * value.height;
+}
