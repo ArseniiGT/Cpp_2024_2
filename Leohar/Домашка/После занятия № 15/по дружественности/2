@@ -1,0 +1,80 @@
+#include <iostream>
+#include <string>
+
+class Person
+{
+public:
+    Person(char name[], int age)
+    {
+        for(int i=0; i<30; i++)
+        {
+            if (name[i] == '\n') break;
+            this->name[i] = name[i];
+        }
+        this->age = age;
+    };
+
+    void display();
+
+protected:
+    char name[30];
+private:
+    int age;
+};
+
+class Employee : public Person
+{
+public:
+    Employee(char name[], int age, std::string company) : Person(name, age)
+    {
+        this->company = company;
+    };
+    void display();
+private:
+    std::string company;
+};
+
+int main()
+{
+    char nameInput[30];
+    int ageInput;
+    std::cout << "Входные данные:" << std::endl;
+    std::cout << "Введите имя:" << std::endl;
+    std::cin.getline(nameInput, 30);
+    std::cout << "Введите возраст:" << std::endl;
+    std::cin >> ageInput;
+
+    Person Ivan(nameInput, ageInput);
+    Ivan.display();
+    std::cout << std::endl;
+
+    char nameInput2[30];
+    int ageInput2;
+    std::string companyInput;
+    std::cout << "Входные данные:" << std::endl;
+    std::cout << "Введите имя:" << std::endl;
+    std::cin.get();
+    std::cin.getline(nameInput2, 30);
+    std::cout << "Введите возраст:" << std::endl;
+    std::cin >> ageInput2;
+    std::cout << "Введите компанию:" << std::endl;
+    std::cin >> companyInput;
+
+    Employee Petr(nameInput2, ageInput2, companyInput);
+    Petr.display();
+
+    return 0;
+}
+
+void Person::display()
+{
+    std::cout << "Выходные данные:" << std::endl;
+    std::cout << "Имя: " << name << " Возраст: " << age << std::endl;
+}
+
+void Employee::display()
+{
+    std::cout << "Выходные данные:" << std::endl;
+    std::cout << "Имя: " << name << " Компания: " << company << std::endl;
+}
+
