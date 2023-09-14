@@ -1,0 +1,39 @@
+/*
+ Напишите программу, 
+ которая запрашивает ввод с клавиатуры теста 
+ и подсчитывает количество слов в тексте,
+ выводит полученное количество на экран.
+
+Пример работы программы:
+Входные данные:
+Мама мыла раму
+Выходные данные:
+3
+*/
+
+#include <iostream>
+#include <string>
+int main()
+{
+    setlocale(LC_ALL, "ru");
+    std::string s1;
+    std::cout << "Введите текст:\n";
+    std::cin >> s1;
+    
+  
+    int len = s1.length();
+    
+   
+    int count = 0;
+    std::string s2 = " ";
+    for (int i =0;i<len;i++)
+    {
+        int pos = s1.find(" ", 0);
+        if (pos!= pos + 1) 
+        {            
+            count++;
+        }
+    }
+    count += count + 1;
+    std::cout << count << std::endl;
+}
