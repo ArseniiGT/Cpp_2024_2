@@ -1,0 +1,41 @@
+#include <iostream>
+#include <math.h>
+#include <iomanip>
+
+class Taxation
+{
+public:
+    static void setN();
+    static double getN(double);
+private:
+    static double n;
+};
+
+double Taxation::n = 0;
+
+int main()
+{
+    //Taxation nalog;
+    double summaInput;
+
+    Taxation::setN();
+    std::cout << "Введите сумму налога:" << std::endl;
+    std::cin >> summaInput;
+
+    std::cout << std::fixed << std::setprecision(2) << Taxation::getN(summaInput) << std::endl;
+
+    return 0;
+}
+
+void Taxation::setN()
+{
+    std::cout << "Введите ставку налога:" << std::endl;
+    std:: cin >> n;
+}
+
+double Taxation::getN(double sum)
+{
+    return n * sum;
+}
+
+
