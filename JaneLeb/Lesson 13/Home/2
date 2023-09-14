@@ -1,0 +1,120 @@
+/*
+Задача 2.
+Создайте класс Person с конструктором, 
+который получает в качестве параметров 
+значения char [] и int 
+и инициализирует ими поля name (protected) и age (private). 
+
+Создайте метод класса display, 
+который выводит на экран информацию в формате:  
+"Имя: name Возраст: age”.
+
+Создайте класс Employee, 
+наследник класса Person. 
+
+Создайте конструктор класса, 
+который инициирует поле company(private) 
+значением получаемого параметра. 
+
+Создайте метод класса showEmployeeName, 
+который будет выводить информацию о сотруднике в формате: 
+"Имя: name Компания: company”.
+
+Напишите программу, которая запрашивает ввод с клавиатуры 
+(в отдельных строках) имени и возраста сотрудника. 
+Создает объект класса Person, 
+инициализирует его введенными с клавиатуры значениями 
+и вызывает метод display.
+
+Далее в новых строках запрашивает ввод с клавиатуры 
+имя, возраст, наименование компании. 
+Создает объект класса Employee, 
+инициализирует его введенными с клавиатуры значениями 
+и вызывает метод  showEmployeeName.
+
+Пример работы программы:
+Входные данные:
+Иван
+25
+
+Выходные данные:
+Имя: Иван Возраст: 25
+
+Входные данные:
+Петр
+34
+SoftWare
+
+Выходные данные:
+Имя: Петр Компания: SoftWare
+
+*/
+
+#include <iostream>
+#include <cstring>
+
+class Person {
+public:
+    Person(const std::string& _name, int _age) : name(_name), age(_age)
+    {}
+
+    void displayName() {
+        std::cout << "Имя: ";
+        std::cout<<name<<std::endl;
+    }
+
+    void display()
+    {
+        displayName();
+        std::cout << "Возраст: " << age << std::endl;
+    }
+
+protected:
+    std::string name;
+
+private:
+    int age;
+};
+
+class Employee : public Person {
+public:
+    Employee(const std::string& _company, const std::string& _name, int _age) :
+        Person(_name, _age), company(_company)
+    {}
+
+    void showEmployeeName() {        
+        displayName();
+        std::cout << "Компания: " << company << std::endl;
+    }
+
+private:  
+    std::string company;   
+};
+
+int main()
+{
+    setlocale(LC_ALL, "ru");
+    
+    std::cout << "Введите имя " << std::endl;
+    std::string name;
+    std::cin >> name;
+    std::cout << "Введите возраст " << std::endl;
+    int age;
+    std::cin >> age;
+    Person k(name, age);
+    k.display();
+
+    std::cout << "Введите название компании " << std::endl;
+    std::string company;
+    std::cin >> company;
+
+    std::cout << "Введите имя " << std::endl;    
+    std::cin >> name;
+
+    std::cout << "Введите возраст " << std::endl;   
+    std::cin >> age;
+
+    Employee x(company, name, age);
+    x.showEmployeeName();
+}
+
