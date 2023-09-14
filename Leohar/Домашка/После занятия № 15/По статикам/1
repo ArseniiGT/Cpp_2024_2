@@ -1,0 +1,55 @@
+#include <iostream>
+#include <math.h>
+#include <iomanip>
+
+
+class Circle
+{
+public:
+    void set_center();
+    void set_radius();
+    double get_distance();
+    double get_area();
+private:
+    double x, y, R;
+};
+
+
+
+
+int main()
+{
+    Circle exmpl;
+    exmpl.set_center();
+    exmpl.set_radius();
+
+
+    std::cout << "Площадь круга: " << std::fixed << std::setprecision(2) << exmpl.get_area() << std::endl;
+    std::cout << "Расстояние от начала координат до центра окружности: " << std::setprecision(2) << exmpl.get_distance() << std::endl;
+
+    return 0;
+}
+
+void Circle::set_center()
+{
+    std::cout << "Введите X:" << std::endl;
+    std:: cin >> x;
+    std::cout << "Введите Y:" << std::endl;
+    std:: cin >> y;
+}
+
+void Circle::set_radius()
+{
+    std::cout << "Введите R:" << std::endl;
+    std:: cin >> R;
+}
+
+double Circle::get_distance()
+{
+    return sqrt( pow(x,2) + pow(y,2) );
+}
+
+double Circle::get_area()
+{
+    return M_PI * pow(R,2);
+}
