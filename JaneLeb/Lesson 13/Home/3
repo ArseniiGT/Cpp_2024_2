@@ -1,0 +1,89 @@
+/*
+1. Создай класс Circle (окружность на плоскости). 
+
+Создай поля x,y,R. 
+
+Добавь метод set_center, 
+который будет присваивать полям x, y значения, 
+
+и метод set_radius, который будет 
+присваивать значение атрибут R. 
+
+Также добавь метод get_distance, 
+который будет возвращать расстояние 
+от начала координат до центра окружности, 
+
+и get_area, который будет возвращать площадь круга, 
+ограниченного данной окружностью.
+
+Считай с клавиатуры 3 целых числа: x, y, R - 
+каждое на отдельной строке 
+и создай экземпляр класса Circle. 
+
+Используя методы, задай полям значения, 
+которые ты считал с клавиатуры. 
+Используя методы, выведи площадь круга, 
+ограниченного данной окружностью, 
+и расстояние от начала координат до центра окружности 
+с точностью до сотых на разных строках.
+
+Входные данные:
+Вводится 3 целых числа - каждое на новой строке.
+Выходные данные:
+Вводится площадь и расстояние, 
+округленные до сотых на разных строках.
+*/
+
+#include <iostream>
+#include <iomanip>
+class Circle
+{
+public:   
+    void set_center(int _x, int _y){
+        x = _x;        
+        y = _y;
+    }
+
+    void set_radius(int _R) {
+        R = _R;
+    }
+
+    double get_distance() {
+        double distance = sqrt(pow(x, 2) + pow(y, 2));
+        return distance;
+    }
+
+    double get_area() {
+        double area = 3.14 * R * R;
+        return area;
+    }
+
+private:
+    int x;
+    int y;
+    int R;
+};
+
+void read(Circle& test) {
+    std::cout << "Введите длину, ширину и радиус:" << std::endl;
+    int x, y, R;
+    std::cin >> x;
+    std::cin >> y;
+    std::cin >> R;
+    test.set_center(x, y);
+    test.set_radius(R);
+}
+
+int main()
+{
+    setlocale(LC_ALL, "ru");
+    std::cout <<std::fixed<< std::setprecision(2);
+    Circle krug;
+    read(krug);
+    std::cout << "Расстояние от начала координат до центра окружности:\n";
+    std::cout << krug.get_distance();
+    std::cout << std::endl;
+    std::cout << "Площадь круга, ограниченного данной окружностью:\n";
+    std::cout << krug.get_area();
+    std::cout << std::endl;
+}
