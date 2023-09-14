@@ -1,0 +1,27 @@
+#include <iostream>
+#include <string>
+
+
+int main()
+{
+    std::string data;
+    int count = 1;
+    int i=1;
+    getline(std::cin, data);
+    while (data[i] != '\0')
+    {
+            if (data[i] == ' ')
+            {
+                count++;
+            }
+            i++;
+    }
+
+    if (data.empty())
+    {
+        count = 0;
+    }
+    std::cout << count << std::endl;
+
+    return 0;
+}
