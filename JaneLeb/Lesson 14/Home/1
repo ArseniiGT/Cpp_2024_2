@@ -1,1 +1,42 @@
+/*
+Задача 1.
+Напишите программу,
+которая запрашивает
+ввод с клавиатуры теста (строки)
+и символа,
+подсчитывает,
+сколько раз встречается введенный символ
+в введенной строке,
+и выводит полученное количество на экран.
 
+Пример работы программы:
+Входные данные:
+application programming
+a
+
+Выходные данные:
+3
+*/
+
+#include <iostream>
+#include <string>
+
+int main()
+{
+    setlocale(LC_ALL, "ru");
+    std::cout << "Введите текст:\n";
+    std::string s1;
+    getline(std::cin, s1);
+    std::cout << "Введите символ, который нужно найти:\n";
+    char userChar;
+    std::cin >> userChar;
+    int len = s1.length();
+    int count=0;
+    for (int i = 0; i < len; i++) {
+        if (s1[i] == userChar)
+        {
+            count++;
+        }
+    }
+    std::cout << count << std::endl;
+}
