@@ -1,1 +1,26 @@
+/*
+1.  
+Напишите программу, 
+которая запрашивает ввод строки (слово) и символа 
+(в отдельных строках), 
+программа должна вывести сколько раз 
+введенный символ встречается в введенной строке. 
 
+Напишите программу с помощью итераторов.
+Для использования функции count подключите библиотеку <algorithm>.
+*/ 
+
+#include <iostream>
+#include <algorithm>
+#include <string>
+int main()
+{
+    setlocale(LC_ALL, "ru");
+    std::cout << "Введите текст:\n";
+    std::string s1;
+    getline(std::cin, s1);
+    std::cout << "Введите символ, который нужно найти:\n";
+    char userChar;
+    std::cin >> userChar;
+    std::cout << count(s1.begin(), s1.end(), userChar) << std::endl;
+}
