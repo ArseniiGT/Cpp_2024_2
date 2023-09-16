@@ -1,0 +1,49 @@
+/*
+Задача 2.  
+Напишите программу, которая запрашивает ввод строки 
+(несколько слов разделенных пробелом), 
+программа должна вывести на экран длину самого короткого слова.
+
+Пример работы программы.
+Входные данные:
+Enter a short text
+Выходные данные:
+1
+*/ 
+
+#include <iostream>
+#include <algorithm>
+#include <string>
+#include <assert.h>
+
+int main()
+{
+    setlocale(LC_ALL, "ru");
+    std::cout << "Введите текст:\n";
+    std::string s1;
+    getline(std::cin, s1);
+
+    int len = s1.length();
+    int cntr = 0;
+    bool state = false;
+    int wMin = 2147483646;
+
+    for (int i = 0; i < s1.size(); i++)
+    {
+        if (s1[i] == ' ')
+        {
+            state = false;
+            cntr = 0;
+        }
+        if (state == false)
+        {
+            state = true;
+            cntr++;
+        }
+        if (wMin > cntr) {
+            wMin = cntr;
+        }
+    }
+
+    std::cout << wMin << std::endl;
+}
