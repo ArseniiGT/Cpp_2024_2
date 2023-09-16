@@ -1,0 +1,48 @@
+Задача 1.  
+Напишите программу, которая запрашивает ввод строки 
+(несколько слов разделенных пробелом) 
+и символа (в отдельных строках), 
+программа должна вывести, 
+сколько раз в введенной строке встречаются слова, 
+начинающиеся на введенный символ.
+Пример работы программы.
+Входные данные:
+hello to all users in the house
+Выходные данные:
+2
+
+#include <iostream>
+#include <algorithm>
+#include <string>
+#include <assert.h>
+int main()
+{
+    setlocale(LC_ALL, "ru");
+    std::cout << "Введите английский текст:\n";
+    std::string s1;
+    getline(std::cin, s1);
+
+    std::cout << "Введите символ, который нужно найти:\n";
+    char userChar;
+    std::cin >> userChar;
+   
+    int cntr = 0;
+    bool state = false;
+   
+    for (int i = 0; i < s1.size(); i++)
+    {
+        if (s1[i] == ' ')
+        {
+            state = false;
+        }
+        if ( state == false && s1[i] == userChar)
+        {
+            state = true;
+            cntr++;           
+        }
+    }
+    
+    std::cout <<"Слов, начинающихся с " << userChar << " - " << cntr << std::endl;
+}
+
+
