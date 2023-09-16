@@ -1,0 +1,44 @@
+/*
+2.Напишите программу, которая 
+запрашивает ввод строки с клавиатуры. 
+Программа должна подсчитать и вывести на экран 
+самую длинную последовательность подряд идущих букв “z” (число).
+*/
+
+#include <iostream>
+#include <algorithm>
+#include <string>
+#include <assert.h>
+int main()
+{
+    setlocale(LC_ALL, "ru");
+    std::cout << "Введите текст:\n";
+    std::string s1;
+    getline(std::cin, s1);
+    int len = s1.length();
+
+    char z = 'z';
+    int pos = s1.find(z);
+    if (pos == -1) {
+        return 0;
+    }
+
+    int cntr = 0;
+    int zMax = 0;
+
+    for (int i = 0; i < len; i++) 
+    {
+        if (s1[i] == z) {
+            cntr++;
+        }
+        if (zMax < cntr) {
+            zMax = cntr;
+        }
+        if (s1[i] != z) {
+        
+            cntr = 0;
+        }
+
+    }
+    std::cout << zMax << std::endl;
+}
