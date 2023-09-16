@@ -1,0 +1,54 @@
+/*
+Задача 3.  
+Напишите программу, которая запрашивает ввод строки с клавиатуры 
+(вводятся заглавные английские буквы). 
+Программа должна подсчитать и вывести на экран, 
+каких букв больше в введенном слове, гласных или согласных. 
+Если гласных больше - вывести количество гласных, 
+если согласных больше - вывести количество согласных. 
+Если количество гласных и согласных букв одинаковое, 
+вывести количество гласных или согласных.
+
+*/ 
+
+#include <iostream>
+#include <algorithm>
+#include <string>
+#include <assert.h>
+int main()
+{
+    setlocale(LC_ALL, "ru");
+    std::cout << "Введите английский текст заглавными буквами:\n";
+    std::string s1;
+    getline(std::cin, s1);
+    int len = s1.length();
+
+    int cntrVowel = 0;
+    int cntrConsonant = 0;
+
+    for (int i = 0; i < len; i++)
+    {
+        if (s1[i] == 'A' ||
+            s1[i] == 'E' ||
+            s1[i] == 'I' ||
+            s1[i] == 'O' ||
+            s1[i] == 'U' ||
+            s1[i] == 'Y') 
+{
+            cntrVowel++;
+        }
+        else {
+            cntrConsonant++;
+        }
+    }
+    
+    if (cntrConsonant > cntrVowel) {
+        std::cout << "Согласных букв больше " << cntrConsonant << std::endl;
+    }
+    if (cntrVowel > cntrConsonant) {
+        std::cout << "Гласных букв больше " << cntrVowel << std::endl;
+    }
+    if (cntrConsonant == cntrVowel) {
+        std::cout << "Количество согласных и гласных букв совпадает " << cntrConsonant << std::endl;
+    }
+}
