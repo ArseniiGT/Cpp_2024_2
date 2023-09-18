@@ -47,4 +47,30 @@ int main()
     std::cout << wMin << std::endl;
 }
 
+//Версия на уроке с разбором
+//Напишите прогрmамму, которая запрашивает ввод строки с клавиатуры.
+//Программа должна подсчитать и вывести на экран самую длинную последовательность подряд идущих букв “z”(число).
 
+
+#include <iostream>
+#include <string>
+
+int main(){
+  std::string s1;
+  int k = 0, count = 0;
+  std::getline(std::cin, s1);
+
+  for (int i = 0; i < s1.length() - 1; i++) {
+    if (s1[i] == 'z' && s1[i + 1] == 'z') {
+      k++;
+      if (k > count)
+      {
+        count = k;
+      }
+    }
+    else {
+      k = 0;
+    }
+  }
+  std::cout << "max length=" << count + 1;
+  return 0;
