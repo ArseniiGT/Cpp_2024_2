@@ -1,3 +1,4 @@
+/*
 Задача 1.  
 Напишите программу, которая запрашивает ввод строки 
 (несколько слов разделенных пробелом) 
@@ -10,6 +11,7 @@
 hello to all users in the house
 Выходные данные:
 2
+*/ 
 
 #include <iostream>
 #include <algorithm>
@@ -35,14 +37,14 @@ int main()
         {
             state = false;
         }
-        if ( state == false && s1[i] == userChar)
+        else if ( state == false )
         {
             state = true;
-            cntr++;           
+            if (s1[i] == userChar) {
+                cntr++;
+            }
         }
     }
     
     std::cout <<"Слов, начинающихся с " << userChar << " - " << cntr << std::endl;
 }
-
-
