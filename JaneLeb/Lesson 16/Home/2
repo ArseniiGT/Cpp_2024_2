@@ -25,25 +25,26 @@ int main()
 
     int len = s1.length();
     int cntr = 0;
-    bool state = false;
     int wMin = 2147483646;
 
     for (int i = 0; i < s1.size(); i++)
     {
         if (s1[i] == ' ')
         {
-            state = false;
+            if (wMin > cntr) {
+                wMin = cntr;
+            }
             cntr = 0;
-        }
-        if (state == false)
+        } else
         {
-            state = true;
             cntr++;
         }
-        if (wMin > cntr) {
-            wMin = cntr;
-        }
-    }
 
+    }
+    if (wMin > cntr) {
+        wMin = cntr;
+    }
     std::cout << wMin << std::endl;
 }
+
+
