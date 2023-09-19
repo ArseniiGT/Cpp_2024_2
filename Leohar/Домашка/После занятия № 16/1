@@ -1,0 +1,43 @@
+#include <iostream>
+#include <string>
+
+int main()
+{
+    std::string line;
+    char symbol;
+    int position = 0;
+    int counter = 0;
+
+    std::cout << "Введите строку: " << std::endl;
+    getline(std::cin, line);
+    std::cout << "Введите символ: " << std::endl;
+    std::cin >> symbol;
+
+    int sizeLine = 0;
+    sizeLine = line.length();
+
+    for (int i=0; i<sizeLine; i++)
+    {
+        position = line.find(symbol);
+        if (position != -1)
+        {
+            counter++;
+            line.erase(position, 1);
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    if (position == 0)
+    {
+        std::cout << "Такого символа нету в строке!" << std::endl;
+    }
+    else
+    {
+        std::cout << "Количество таких символов в строке: " << counter <<std::endl;
+    }
+
+return 0;
+}
