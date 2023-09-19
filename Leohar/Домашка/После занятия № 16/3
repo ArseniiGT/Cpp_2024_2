@@ -1,0 +1,25 @@
+#include <iostream>
+#include <string>
+
+int main()
+{
+    std::string line;
+    std::string newString;
+    int counter = 0;
+
+    std::cout << "Введите строку: " << std::endl;
+    getline(std::cin, line);
+
+    int sizeLine = 0;
+    sizeLine = line.length();
+
+    for (int i=0; i<sizeLine+1; i++)
+    {
+        newString = newString + line[sizeLine - i];
+    }
+
+    newString.erase(0,1);
+    std::cout << newString << std::endl;
+
+return 0;
+}
