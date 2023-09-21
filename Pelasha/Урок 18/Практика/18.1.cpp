@@ -23,9 +23,9 @@ void func(int x, int y)
 {
     try
     {
-        if (x == 0 || y == 0) throw 1;
-        if (x < 0) throw 2;
-        if (y < 0) throw 3;
+        if (x == 0 || y == 0) throw "ZERO!x = значение, y = значение";
+        if (x < 0) throw "Negative parameter 1.  x = значение, y = значение";
+        if (y < 0) throw "Negative parameter 2.  x = значение, y = значение";
         while (x != y) 
         {
             if (x > y) 
@@ -39,18 +39,11 @@ void func(int x, int y)
         }
         std:: cout << x;
     }
-    catch (int n)
+    catch (const char* err)
     {
-        std::cout << "ZERO!x = значение, y = значение" << std::endl;
+        std::cout << err << std::endl;
     }
-    catch (int n)
-    {
-        std::cout << "Negative parameter 1.  x = значение, y = значение" << std::endl;
-    }
-    catch (int n)
-    {
-        std::cout << "Negative parameter 2.  x = значение, y = значение" << std::endl;
-    }
+    
 
 }
 int main() {
