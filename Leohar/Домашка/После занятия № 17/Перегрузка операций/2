@@ -1,0 +1,166 @@
+#include <iostream>
+
+using namespace std;
+
+int NOD(int a,int b)
+{
+    while (a >0 && b >0)
+    {
+        if (a>b)
+        {
+            a &= b;
+        }
+        else
+        {
+            b %= a;
+        }
+    }
+    return a + b;
+}
+
+class Fraction
+{
+public:
+    int num, den;
+    Fraction(int n, int d)
+    {
+        num = n / NOD(n,d);
+        den = d / NOD(n,d);
+    }
+
+    int get_common_denomanator(int den1, int den2)
+    {
+        int common_den = den1 * den2 / NOD(den1, den2);
+        return common_den;
+    }
+    static void print(bool result)
+    {
+        cout << boolalpha << result << endl;
+    }
+
+    bool operator == (Fraction &c2)
+    {
+        int common_den = get_common_denomanator(this->den, c2.den);
+        int num = common_den / this->den * this->num + common_den / c2.den * c2.num;
+        num = num / NOD(num, common_den);
+        if (this->num == c2.num)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+     }
+
+    bool operator != (Fraction &c2)
+    {
+        int common_den = get_common_denomanator(this->den, c2.den);
+        int num = common_den / this->den * this->num + common_den / c2.den * c2.num;
+        num = num / NOD(num, common_den);
+        if (this->num != c2.num)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+     }
+
+    bool operator > (Fraction &c2)
+    {
+        int common_den = get_common_denomanator(this->den, c2.den);
+        int num = common_den / this->den * this->num + common_den / c2.den * c2.num;
+        num = num / NOD(num, common_den);
+        if (this->num > c2.num)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+     }
+
+    bool operator < (Fraction &c2)
+    {
+        int common_den = get_common_denomanator(this->den, c2.den);
+        int num = common_den / this->den * this->num + common_den / c2.den * c2.num;
+        num = num / NOD(num, common_den);
+        if (this->num < c2.num)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+     }
+
+    bool operator >= (Fraction &c2)
+    {
+        int common_den = get_common_denomanator(this->den, c2.den);
+        int num = common_den / this->den * this->num + common_den / c2.den * c2.num;
+        num = num / NOD(num, common_den);
+        if (this->num >= c2.num)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+     }
+
+    bool operator <= (Fraction &c2)
+    {
+        int common_den = get_common_denomanator(this->den, c2.den);
+        int num = common_den / this->den * this->num + common_den / c2.den * c2.num;
+        num = num / NOD(num, common_den);
+        if (this->num <= c2.num)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+     }
+};
+
+int main()
+{
+    int num, den;
+    bool result;
+
+    cin >> num;
+    cin >> den;
+    Fraction fraction1(num, den);
+
+    cin >> num;
+    cin >> den;
+    Fraction fraction2(num, den);
+
+    cout << endl;
+
+    result = fraction1 == fraction2;
+    Fraction::print(result);
+
+    result = fraction1 != fraction2;
+    Fraction::print(result);
+
+    result = fraction1 > fraction2;
+    Fraction::print(result);
+
+    result = fraction1 < fraction2;
+    Fraction::print(result);
+
+    result = fraction1 >= fraction2;
+    Fraction::print(result);
+
+    result = fraction1 <= fraction2;
+    Fraction::print(result);
+
+    return 0;
+}
