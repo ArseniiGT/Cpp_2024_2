@@ -284,7 +284,7 @@ int main()
   std::cout << "Ведите знаменатель первой дроби: целое положительное число" << std::endl;
   std::cin >> den;
 
-  std::cout << " Наименьший общий делитель " << NOD(num, den) << std::endl;
+  
   Fraction fraction1(num, den);
   fraction1.print();
   std::cout << std::endl;
@@ -293,7 +293,7 @@ int main()
   std::cin >> num;
   std::cout << "Ведите знаменатель второй дроби:целое положительное число" << std::endl;
   std::cin >> den;
-  std::cout <<" Наименьший общий делитель "<< NOD(num, den) << std::endl;
+ 
   Fraction fraction2(num, den);
   fraction2.print();
   std::cout << std::endl;
