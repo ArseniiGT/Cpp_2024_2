@@ -1,0 +1,62 @@
+/* 
+Задача 1.
+Напишите программу, которая запрашивает ввод с клавиатуры 
+двух целых чисел (в отдельных строках). 
+
+Напиши функцию, которая возвращает частное двух введенных чисел, 
+при этом реализуй проверку деления на 0 с помощью исключений. 
+
+Для обработки исключений используй класс exception, 
+который определен в заголовочном файле <exception>. 
+
+С помощью метода what() в блоке catch 
+получи переданное сообщение и выведи его на экран. 
+
+Если исключение не возникло, 
+программа должна вывести результат работы функции (частное).
+*/ 
+
+#include <iostream>
+#include <exception>
+
+class person_error : public std::exception
+{
+public:
+    person_error(const std::string& message) : message{ message }
+    {}
+    const char* what() const noexcept override
+    {
+        return message.c_str();     // получаем из std::string строку const char*
+    }
+private:
+    std::string message;    // сообщение об ошибке
+};
+
+
+int main()
+{
+    setlocale(LC_ALL, "ru");
+    double a;
+    double b;
+    std:: cout << "Введите первое число: \n";
+    std::cin >> a;
+    try {
+        std::cout << "Введите второе число: \n";
+        std::cin >> b;
+        if (b == 0) 
+        {
+            throw person_error{ "Ошибка.На ноль делить нельзя." };
+        }
+        else {
+            std::cout << "Результат: \n" << a / b << std::endl;
+        }
+    }
+
+    catch (const person_error& e)
+        { 
+          std::cout << e.what();           
+            return 1;
+        }
+    
+    return a / b;
+}
