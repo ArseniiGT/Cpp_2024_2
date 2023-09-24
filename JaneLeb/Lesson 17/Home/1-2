@@ -14,6 +14,7 @@
 вычитание,
 умножение,
 деление(/ ).
+
 А также сравнение 
 <
 >
@@ -50,172 +51,48 @@
 каждая строка содержит целое число -
 числитель и знаменатель первой дроби и
 числитель и знаменатель второй дроби.
-
+//
 Выходные данные :
-Выводится 4 строки в формате «Дробь{ числитель } / {знаменатель}» без кавычек
+Выводится 4 строки в формате «Дробь{ числитель } / {знаменатель}» без кавычек.
 Пример работы программы :
-Входные данные :
+//Входные данные :
 //2
 //4
 //1
 //4
-Выходные данные :
+//Выходные данные :
 //Дробь 3 / 4
 //Дробь 1 / 4
 //Дробь 1 / 8
 //Дробь 2 / 1
 */
-
-
 #include <iostream>
 #include <math.h>
-
 using namespace std;
 
-int NOD(int a, int b)
-{
-    a = std::abs(a);
-    b = std::abs(b);
-    while (a > 0 && b > 0)
-    {
-        if (a > b)
-        {
-            a %= b;
-        }
-        else
-        {
-            b %= a;
-        }
-    }
-    return a + b;
-}
+int NOD(int, int);
 
 class Fraction
 {
 public:
-    int num, den;
-    Fraction(int n, int d)
-    {
-        if (d < 0) {
-            d = std::abs(d);
-            n = n * -1;
-        }
-       
-        const int nod = NOD(n, d);
-        num = n / nod;
-        den = d / nod;
-    }
-
-    void print()
-    {
-        if (num == den || num == 0 || den == 1) 
-        {
-            std::cout << num << " ";
-            std::cout << "(" << num << "/" << den << ")" << " ";
-        }
-        else if (num > den) {
-            int mixedNumeral = num / den;
-            std::cout << mixedNumeral << " и " << num % den << "/" << den <<" "<<  "(" << num << "/" << den << ")" << " ";
-        }
-        else {
-            std::cout << num << "/" << den << " ";
-        }
-    }
-
-    int get_common_denomanator(int den1, int den2) const
-    {
-        int common_den = den1 * den2 / NOD(den1, den2);
-        return common_den;
-    }
-  
-    Fraction operator + (const Fraction& c2) const
-    {
-        int common_den = get_common_denomanator(this->den, c2.den);
-        int num = common_den / this->den * this->num + common_den / c2.den * c2.num;
-        return Fraction(num, common_den);
-    }
-
-    Fraction operator - (const Fraction& c2) const
-    {
-        int common_den = get_common_denomanator(this->den, c2.den);
-        int num = common_den / this->den * this->num - common_den / c2.den * c2.num;
-        return Fraction(num, common_den);
-    }
-
-    Fraction operator * (const Fraction& c2) const
-    {
-        int den = this->den * c2.den;
-        int num = this->num * c2.num;
-        return Fraction(num, den);
-    }
-
-    Fraction operator / (const Fraction& c2) const
-    {
-        int den = this->den * c2.num;
-        int num = this->num * c2.den;
-        return Fraction(num, den);
-    }
-
-    bool operator == (const Fraction& c2) const
-    {
-        return this->num == c2.num && this->den == c2.den;
-    }
-
-    bool operator != (const Fraction& c2) const
-    {
-        if ((*this) == c2)
-        {
-            return false;
-        }
-        return true;        
-    }
-
-    bool operator <  (const Fraction& c2) const
-    {
-        if ((*this) == c2)
-        {
-            return false;
-        }
-
-        Fraction c3 = *(this) - c2;
-
-        if (c3.num < 0)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    bool operator > (const Fraction& c2) const
-    {
-        if ((*this) == c2)             
-        {
-            return false;
-        }
-        if((* this) < c2)
-        {
-        return false;
-        }
-        return true;
-    }
-
-    bool operator >= (const Fraction& c2) const
-    {
-        if ((*this) < c2)
-        {
-            return false;
-        }
-        return true;
-    }
-
-    bool operator <= (const Fraction& c2) const
-    {
-        if ((*this) > c2)
-        {
-            return false;
-        }
-        return true;       
-    }
+//Поля
+    int num;
+    int den;
+public:
+//Методы
+    void print()const;
+    Fraction(int, int);
+    int get_common_denomanator(int, int)const;
+    Fraction operator + (const Fraction&) const;
+    Fraction operator - (const Fraction&) const;
+    Fraction operator * (const Fraction&) const;
+    Fraction operator / (const Fraction&) const;
+    bool operator == (const Fraction&) const;
+    bool operator != (const Fraction&) const;
+    bool operator <  (const Fraction&) const;
+    bool operator > (const Fraction&) const;
+    bool operator >= (const Fraction& c2) const;
+    bool operator <= (const Fraction& c2) const;
 };
 
 int main()
@@ -226,7 +103,6 @@ int main()
     std::cin >> num;
     std::cout << "Ведите знаменатель первой дроби: целое положительное число не равное нулю:" << std::endl;
     std::cin >> den;
-
 
     Fraction fraction1(num, den);
     fraction1.print();
@@ -249,30 +125,29 @@ int main()
     std::cout << " = ";
     fraction3.print();
 
-    Fraction fraction4 = fraction1 - fraction2;
+    Fraction fraction3 = fraction1 - fraction2;
     std::cout << "\nРезультат вычитания:\t ";
     fraction1.print();
     std::cout << " - ";
     fraction2.print();
     std::cout << " = ";
-    fraction4.print();
+    fraction3.print();
 
-    Fraction fraction5 = fraction1 * fraction2;
+    Fraction fraction3 = fraction1 * fraction2;
     std::cout << "\nРезультат умножения:\t ";
     fraction1.print();
     std::cout << " * ";
     fraction2.print();
     std::cout << " = ";
-    fraction5.print();
+    fraction3.print();
 
-    Fraction fraction6 = fraction1 / fraction2;
+    Fraction fraction3 = fraction1 / fraction2;
     std::cout << "\nРезультат деления:\t ";
     fraction1.print();
     std::cout << " / ";
     fraction2.print();
     std::cout << " = ";
-    fraction6.print();
-
+    fraction3.print();
 
     std::cout << "\nРезультат сравнения:\n";
     std::cout << std::endl;
@@ -331,4 +206,145 @@ int main()
         std::cout << " больше, либо равно ";
         fraction2.print();        
     }
+}
+
+int NOD(int a, int b)
+{
+    a = std::abs(a);
+    b = std::abs(b);
+    while (a > 0 && b > 0)
+    {
+        if (a > b)
+        {
+            a %= b;
+        }
+        else
+        {
+            b %= a;
+        }
+    }
+    return a + b;
+}
+
+void Fraction:: print() const
+{
+    if (num == den || num == 0 || den == 1)
+    {
+        std::cout << num << " ";
+        std::cout << "(" << num << "/" << den << ")" << " ";
+    }
+    else if (num > den) {
+        int mixedNumeral = num / den;
+        std::cout << mixedNumeral << " и " << num % den << "/" << den << " " << "(" << num << "/" << den << ")" << " ";
+    }
+    else {
+        std::cout << num << "/" << den << " ";
+    }
+}
+
+Fraction::Fraction(int n, int d)
+{
+    if (d < 0) {
+        d = std::abs(d);
+        n = n * -1;
+    }
+
+    const int nod = NOD(n, d);
+    num = n / nod;
+    den = d / nod;
+}
+
+int Fraction::get_common_denomanator(int den1, int den2) const
+{
+    int common_den = den1 * den2 / NOD(den1, den2);
+    return common_den;
+}
+
+Fraction Fraction::operator + (const Fraction& c2) const
+{
+    int common_den = get_common_denomanator(this->den, c2.den);
+    int num = common_den / this->den * this->num + common_den / c2.den * c2.num;
+    return Fraction(num, common_den);
+}
+
+Fraction Fraction::operator - (const Fraction& c2) const
+{
+    int common_den = get_common_denomanator(this->den, c2.den);
+    int num = common_den / this->den * this->num - common_den / c2.den * c2.num;
+    return Fraction(num, common_den);
+}
+
+Fraction Fraction::operator * (const Fraction& c2) const
+{
+    int den = this->den * c2.den;
+    int num = this->num * c2.num;
+    return Fraction(num, den);
+}
+
+Fraction Fraction:: operator / (const Fraction& c2) const
+{
+    int den = this->den * c2.num;
+    int num = this->num * c2.den;
+    return Fraction(num, den);
+}
+
+bool Fraction:: operator == (const Fraction& c2) const
+{
+    return this->num == c2.num && this->den == c2.den;
+}
+
+bool Fraction:: operator != (const Fraction& c2) const
+{
+    if ((*this) == c2)
+    {
+        return false;
+    }
+    return true;
+}
+
+bool Fraction:: operator <  (const Fraction& c2) const
+{
+    if ((*this) == c2)
+    {
+        return false;
+    }
+
+    Fraction c3 = *(this) - c2;
+
+    if (c3.num < 0)
+    {
+        return true;
+    }
+    return false;
+}
+
+bool Fraction::operator > (const Fraction& c2) const
+{
+    if ((*this) == c2)
+    {
+        return false;
+    }
+    if ((*this) < c2)
+    {
+        return false;
+    }
+    return true;
+}
+
+bool Fraction:: operator >= (const Fraction& c2) const
+{
+    if ((*this) < c2)
+    {
+        return false;
+    }
+    return true;
+}
+
+bool Fraction::operator <= (const Fraction& c2) const
+{
+    if ((*this) > c2)
+    {
+        return false;
+    }
+    return true;
 }
