@@ -1,0 +1,51 @@
+#include <iostream>
+#include <string>
+
+void sizeString (std::string text)
+{
+    if (text.length() < 6)
+    {
+        throw "Короткий пароль!";
+    }
+}
+
+void presenceOfSymbol (std::string text)
+{
+    int counter = 0;
+    for (size_t i=0; i<text.length(); i++ )
+    {
+        if ((text[i] == '!') || (text[i] == '@') || (text[i] == '#') ||
+            (text[i] == '$') || (text[i] == '%') || (text[i] == '^') ||
+            (text[i] == '&') || (text[i] == '*') || (text[i] == '(') ||
+            (text[i] == ')') || (text[i] == '<') || (text[i] == '>') ||
+            (text[i] == '?'))
+        {
+            counter++;
+        }
+    }
+    if (counter == 0)
+    {
+        throw "Нет специального символа! (!@#$%^&*()<>?)";
+    }
+ }
+
+int main()
+{
+    std::string password;
+
+    std::cout << "Введите пароль:" << std::endl;
+    std::cin >> password;
+
+    try
+    {
+        sizeString(password);
+        presenceOfSymbol(password);
+        std::cout << "Пароль: " << password <<" создан успешно!" << std::endl;
+    }
+    catch (const char *error)
+    {
+        std::cout << error << std::endl;
+    }
+
+    return 0;
+}
