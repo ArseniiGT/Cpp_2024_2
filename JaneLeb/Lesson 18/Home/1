@@ -18,45 +18,33 @@
 
 #include <iostream>
 #include <exception>
-
-class person_error : public std::exception
-{
-public:
-    person_error(const std::string& message) : message{ message }
-    {}
-    const char* what() const noexcept override
-    {
-        return message.c_str();     // получаем из std::string строку const char*
-    }
-private:
-    std::string message;    // сообщение об ошибке
-};
-
+double divizion(int, int);
 
 int main()
 {
     setlocale(LC_ALL, "ru");
-    double a;
-    double b;
+    int a;
+    int b;
     std:: cout << "Введите первое число: \n";
     std::cin >> a;
+    std::cout << "Введите второе число: \n";
+    std::cin >> b;
     try {
-        std::cout << "Введите второе число: \n";
-        std::cin >> b;
-        if (b == 0) 
+        divizion(a, b);
+        if (b == 0)
         {
-            throw person_error{ "Ошибка.На ноль делить нельзя." };
+           throw std::runtime_error {"Ошибка. На ноль делить нельзя."};
         }
-        else {
-            std::cout << "Результат: \n" << a / b << std::endl;
-        }
+        std::cout << "Результат: \n" << a / b << std::endl;
     }
 
-    catch (const person_error& e)
-        { 
-          std::cout << e.what();           
-            return 1;
-        }
-    
-    return a / b;
+    catch (const std::runtime_error& e)
+    {
+        std::cerr << e.what();       
+    }
 }
+
+double divizion(int a, int b)
+{
+    return static_cast<double> (a / b);
+};
