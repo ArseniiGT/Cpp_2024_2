@@ -1,0 +1,37 @@
+#include <iostream>
+#include <exception>
+
+double quotientOfDivision (int val1, int val2)
+{
+    if (val2 == 0)
+    {
+        throw std::runtime_error("Пресечена попытка деления на ноль!");
+    }
+    double val3;
+    val3 = static_cast<double>(val1) / val2;
+    return val3;
+}
+
+
+int main()
+{
+    int value1, value2;
+    double value3;
+
+    std::cout << "Введите первое число:" << std::endl;
+    std::cin >> value1;
+    std::cout << "Введите второе число:" << std::endl;
+    std::cin >> value2;
+
+    try
+    {
+        value3 = quotientOfDivision (value1, value2);
+        std::cout << value1 << " / " << value2 << " = " << value3 << std::endl;
+    }
+    catch (std::runtime_error &error)
+    {
+        std::cout << "Warning: " << error.what() << std::endl;
+    }
+
+    return 0;
+}
