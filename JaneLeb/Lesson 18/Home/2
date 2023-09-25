@@ -1,0 +1,132 @@
+/*
+Задача 2.  
+Напиши программу, которая запрашивает 
+ввод с клавиатуры строки(пароля) 
+и выполняет проверку корректности пароля. 
+
+Корректный пароль должен иметь длину не менее 6 символов, 
+а также включать в себя хотя бы один знак 
+из набора !@#$%^&*()<>?,. символов. 
+
+Если пароль корректен, то он выводится на экран. 
+В противном случае вызывается одно из собственных 
+исключений MinLengthPasswordError 
+(не выполнено условие минимальной длины) 
+или NoSpecialCharactersError (нет символа из набора).
+
+Считай с клавиатуры одну строку - пароль. 
+Если он корректный - выведи на экран текст 
+«Пароль: {password}»,
+например «Пароль: {12345678@}». 
+
+Если пароль некорректный, то с помощью вызова исключений 
+MinLengthPasswordError или NoSpecialCharactersError 
+выведи на экран текст «Короткий пароль» или «Нет специального символа». 
+
+Сначала проверяется условие необходимой длины, 
+если оба условия ложны, 
+то выводится одно сообщение - «Короткий пароль».
+
+При написании кода программы 
+используй обработку исключений. 
+Создай собственные исключения 
+MinLengthPasswordError и NoSpecialCharactersError.
+
+Входные данные:
+Вводится одна строка - пароль.
+
+Выходные данные:
+Выводится строка «Пароль: {password}» 
+или строка «Короткий пароль» 
+или «Нет специального символа».
+
+Пример ввода:
+1234
+
+Пример вывода:
+Короткий пароль
+
+Пример ввода:
+12345678
+*/ 
+
+#include <iostream>
+#include <exception>
+
+class MinLengthPasswordError
+{
+public:
+    //методы
+    const std::string& what() const
+    {
+        return message;     
+    }
+    MinLengthPasswordError(const std::string& _message) : message(_message) {}
+private:
+    //поля
+    const std::string message;
+};
+
+class NoSpecialCharactersError
+{
+public:
+    const std::string& what() const
+    {
+        return message;
+    }
+    NoSpecialCharactersError(const std::string& _message) : message(_message) {}
+private:
+    const std::string message;
+};
+   
+int main()
+{
+    setlocale(LC_ALL, "ru");
+    std::string password;
+    std::cout << "Введите пароль не мение шести символов, один среди которых будет специальным:  !@#$%^&*()<>? \n";
+    std::cin >> password;
+
+    try 
+    {
+        if (password.size() < 6)
+        {
+            throw MinLengthPasswordError{ " Короткий пароль" };
+        }
+    
+        bool findChar = false;
+        for (int i = 0; i < password.size(); i++)
+        {
+            if (password[i] == '!' ||
+                password[i] == '@' ||
+                password[i] == '#' ||
+                password[i] == '$' ||
+                password[i] == '^' ||
+                password[i] == '&' ||
+                password[i] == '*' ||
+                password[i] == '(' ||
+                password[i] == ')' ||
+                password[i] == '<' ||
+                password[i] == '>' ||
+                password[i] == '?' ||
+                password[i] == ',' ||
+                password[i] == '.')
+            {
+                findChar = true;
+                break;
+            }
+        }
+        if (findChar == false)
+        {
+            throw NoSpecialCharactersError{ " Нет специального символа" };
+        }
+        std::cout << "Результат: \n" << password << std::endl;
+    }
+    catch (const MinLengthPasswordError& e)
+    {
+        std::cerr << e.what();
+    }
+    catch (const NoSpecialCharactersError& e)
+    {
+        std::cerr << e.what();
+    }
+}
