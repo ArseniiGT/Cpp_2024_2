@@ -1,0 +1,42 @@
+/*
+ Дан массив целочисленных значений {192,188, 190, 178, 175, 185}. 
+ Напишите программу, которая запрашивает у пользователя значение 
+ и если оно есть в массиве выводит “+”, 
+ если массив не содержит такого значения — выводит “-”. 
+ Организовать поиск элемента оптимальным способом.
+*/
+
+#include <iostream>
+
+bool SarchKey(int, int*, int);
+
+int main()
+{
+	setlocale(LC_ALL, "ru");	
+	std::cout << "Введите key: \n";
+	int key;
+	std::cin >> key;
+	int k[] = { 192, 188, 190, 178, 175, 185 };
+	int size = 6;
+
+	if (SarchKey(key, k, size)) 
+	{
+		std::cout << " + " << std::endl;
+	}
+	else 
+	{
+		std::cout << " - " << std::endl;
+	}	
+}
+
+bool SarchKey(int key, int* k, int size) 
+{
+	for (int i = 0; i < size; i++) 
+	{
+		if (k[i] == key)
+		{			 
+			return true;
+		}
+	}
+	return false;
+}
