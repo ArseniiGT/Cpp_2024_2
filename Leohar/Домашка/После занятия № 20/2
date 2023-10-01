@@ -1,0 +1,42 @@
+#include <iostream>
+
+int main()
+{
+    int arr[] = {1, 2, 5, 7, 8, 9, 10, 11, 13, 15, 16, 17, 19, 20};
+    int value, left, right, midle;
+    bool flag = false;
+
+    std::cout << "Введите значение:" << std::endl;
+    std::cin >> value;
+
+    left = 0;
+    right = sizeof(arr)/sizeof(arr[0]);
+
+    while ((left <= right) && (flag != true))
+    {
+        midle = (left + right) / 2;
+        if (arr[midle] == value)
+        {
+            flag = true;
+        }
+        if (arr[midle] > value)
+        {
+            right = midle - 1;
+        }
+        else
+        {
+            left = midle + 1;
+        }
+    }
+
+    if (flag == true)
+    {
+        std::cout << "+" << std::endl;
+    }
+    else
+    {
+        std::cout << "-" << std::endl;
+    }
+
+    return 0;
+}
