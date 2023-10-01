@@ -1,0 +1,59 @@
+/*
+Создайте массив из 10 элементов, 
+организуйте ввод значений элементов массива с клавиатуры (целые числа). 
+Запросите ввод искомого значения с клавиатуры. 
+
+Организуйте поиск введенного пользователем значения 
+с помощью алгоритма линейного поиска, 
+если значение найдено в массиве — вывести его индекс, 
+если искомое значение не найдено — вывести “-1”. 
+
+В отдельной строке выведите количество произведенных сравнений за время поиска.
+*/ 
+
+#include <iostream>
+int Search(int*, const int, int, int&);
+
+int main()
+{
+    setlocale(LC_ALL, "ru");
+    const int size = 10;
+    int arr[size];
+    int key;
+    int cntr = 0;
+
+    std::cout << "Введите искомое значение: \n";
+    std::cin >> key;
+
+    for (int i = 0; i < 10; i++)
+    {
+        int input;
+        std::cout << "Введите значение " << i + 1 << " элемента: " << std::endl;
+        std::cin >> input;
+        arr[i] = input;
+    }
+
+    int res = Search(arr, size, key, cntr);
+    if(res == -1)
+    {
+        std::cout << " - 1. " << "Искомое значение не найдено.\n";
+    }
+    else
+    {
+        std::cout << "Индекс искомого значения: " << res << std::endl;
+    }
+    std::cout << "Количество произведенных сравнений = " << cntr << std::endl;
+}
+
+int Search(int* arr, const int size, int key, int &cntr)
+{
+   for (int i = 0; i < size; i++)
+   {
+        cntr++;
+        if (arr[i] == key)
+        {           
+            return i;            
+        }
+   }    
+    return -1;
+}
