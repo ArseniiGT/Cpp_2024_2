@@ -1,0 +1,31 @@
+#include <iostream>
+
+int main()
+{
+    int arr[] = {192, 188, 190, 178, 175, 185};
+    int value;
+    bool flag = false;
+
+    std::cout << "Введите значение:" << std::endl;
+    std::cin >> value;
+
+    for(int i=0; i < (sizeof(arr)/sizeof(arr[0])); i++)
+    {
+        if (arr[i]==value)
+        {
+            flag = true;
+            break;
+        }
+    }
+
+    if (flag == true)
+    {
+        std::cout << "+" << std::endl;
+    }
+    else
+    {
+        std::cout << "-" << std::endl;
+    }
+
+    return 0;
+}
