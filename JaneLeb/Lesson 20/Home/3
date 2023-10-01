@@ -1,0 +1,35 @@
+/*
+ Напишите программу, которая выстраивает учащихся по росту. 
+ В классе учится от 5 до 30 учащихся. 
+ Программа должна запрашивать количество учащихся в классе, 
+ после чего запрашивать  рост каждого учащегося в классе. 
+ В результате вывести в строку через один пробел рост 
+ всех учащихся класса в порядке убывания.
+*/
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main()
+{
+    setlocale(LC_ALL, "ru");
+    std::vector<int> student; 
+    int size;
+    int input;
+    std::cout << "Введите количество учащихся в классе:\n";
+    std::cin >> size;
+    
+    for (int i = 0; i < size; i++)
+    {
+        std::cout << "Введите рост " << i+1 << " учащегося :\n";
+        std::cin >> input;
+        student.push_back(input);
+    }
+    std::sort(student.begin(), student.end());
+
+    for (int i = 0; i < size; i++)
+    {
+        std::cout <<std::endl<< student[i] << std::endl;
+    }
+}
