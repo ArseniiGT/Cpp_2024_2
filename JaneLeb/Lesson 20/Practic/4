@@ -1,0 +1,56 @@
+/*
+ Создайте массив из 10 элементов, 
+ организуйте ввод значений элементов массива с клавиатуры (целые числа). 
+ 
+ Упорядочьте элементы массива по возрастанию методом прямого выбора, 
+ 
+ выведите упорядоченный массив на экран в одну строку, 
+ с одним пробелом между элементами массива.
+*/ 
+
+#include <iostream>
+int findSmallestPosition(int*, int, int);
+void selectionSort(int*, int);
+
+int main()
+{
+	setlocale(LC_ALL, "ru");
+	const int size = 10;
+	int arr[size];
+	
+	for (int i = 0; i < size; i++) {
+		std::cout << "Введите "<< i+1 <<" элемент массива: " << std::endl;
+		std::cin >> arr[i];
+	}
+
+	selectionSort(arr, size);
+
+	std::cout << "Отсортированный массив: " << std::endl;
+	for (int i = 0; i < size; i++) {
+		std::cout << arr[i] << " ";
+	}	
+	std::cout << std::endl;
+}
+int findSmallestPosition(int* arr, int startPosition, int size)
+{
+	int smallestPosition = startPosition;
+
+	for (int i = startPosition; i < size; i++)
+	{
+		if (arr[i] < arr[smallestPosition]) 
+		{
+			smallestPosition = i;
+		}			
+	}
+	return smallestPosition;
+}
+
+void selectionSort(int *arr, int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		int smallestPosition = findSmallestPosition(arr, i, size);
+		std::swap(arr[i], arr[smallestPosition]);
+	}
+	return;
+}
