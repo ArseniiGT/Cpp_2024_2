@@ -1,0 +1,70 @@
+/*
+ Создайте массив из 10 элементов, 
+ организуйте ввод значений элементов массива с клавиатуры 
+ (целые числа, значения должны быть упорядочены). 
+ Запросите ввод искомого значения с клавиатуры. 
+ 
+ Организуйте поиск введенного пользователем значения 
+ с помощью алгоритма бинарного поиска, 
+ если значение найдено в массиве вывести его индекс, 
+ если искомое значение не найдено — вывести “ -1 ”. 
+ 
+ В отдельной строке выведите количество произведенных сравнений за время поиска.
+*/ 
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int binarySearch(const std::vector<int>&, int);
+
+int main()
+{
+    setlocale(LC_ALL, "ru");
+    int target;    
+    std::vector<int> arr(10);
+
+    for (int i = 0; i < arr.size(); i++)
+    {
+        std::cout << "Введите " << i + 1 << " элемент массива:\n";
+        std::cin >> arr[i];
+    }
+
+    std::cout << "Введите искомое значение: \n";
+    std::cin >> target;
+
+    int result = binarySearch(arr, target);
+    if (result != -1)
+    {
+        std::cout << "Элемент " << target << " найден, его индекс в отсортированном массиве равен " << result << "\n";
+    }
+    else
+    {
+        std::cout <<result << " Элемент " << target << " не найден.\n";
+    }
+}
+
+int binarySearch(const std::vector<int>& arr, int target) 
+{
+    int left = 0;
+    int right = arr.size();
+
+    while (left <= right)
+    {
+        int mid = (left + right) / 2;
+        
+        if (arr[mid] == target) {
+            return mid;
+        }
+        else if(arr[mid] < target)
+        {
+            left = mid + 1;
+        }
+        else 
+        {
+            right = mid - 1;
+        }
+    }
+    return -1;
+}
+
