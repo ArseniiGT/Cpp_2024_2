@@ -1,0 +1,36 @@
+#include <iostream>
+
+int main()
+{
+    int heightStudents[29];
+    int quanityStudents, temp;
+
+    std::cout << "Введите количество учащихся в классе:" << std::endl;
+    std::cin >> quanityStudents;
+
+    for (int i=0; i<quanityStudents; i++)
+    {
+        std::cout << "Введит рост ученика № " << i+1 << ":" << std::endl;
+        std::cin >> heightStudents[i];
+    }
+
+    for (int i=0; i<quanityStudents; i++)
+    {
+        for(int j=0; j<quanityStudents-1; j++)
+        {
+            if(heightStudents[j]>heightStudents[j+1])
+            {
+                temp = heightStudents[j];
+                heightStudents[j] = heightStudents[j+1];
+                heightStudents[j+1] = temp;
+            }
+        }
+    }
+
+    for (int i=0; i<quanityStudents; i++)
+    {
+        std::cout << heightStudents[quanityStudents - 1 - i] << " ";
+    }
+
+    return 0;
+}
