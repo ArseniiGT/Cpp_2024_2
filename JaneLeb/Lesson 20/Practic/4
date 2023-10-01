@@ -35,7 +35,7 @@ int findSmallestPosition(int* arr, int startPosition, int size)
 {
 	int smallestPosition = startPosition;
 
-	for (int i = startPosition; i < size; i++)
+	for (int i = startPosition+1; i < size; i++)
 	{
 		if (arr[i] < arr[smallestPosition]) 
 		{
@@ -49,7 +49,7 @@ void selectionSort(int *arr, int size)
 {
 	for (int i = 0; i < size; i++)
 	{
-		int smallestPosition = findSmallestPosition(arr, i, size);
+		const int smallestPosition = findSmallestPosition(arr, i, size);
 		std::swap(arr[i], arr[smallestPosition]);
 	}
 	return;
