@@ -1,0 +1,39 @@
+/*
+ Создайте массив из 10 элементов, 
+ организуйте ввод значений элементов массива с клавиатуры (целые числа). 
+ Выведите на экран в отдельной строке максимальный и минимальный элемент массива.
+*/
+
+#include <iostream>
+
+int main()
+{
+    setlocale(LC_ALL, "ru");  
+    int arr[10];
+    for (int i = 0; i < 10; i++) 
+    {
+        int input;
+        std::cout << "Введите значение " << i + 1 << " элемента: " << std::endl;
+        std::cin >> input;
+        arr[i] = input;
+    }
+
+    int minArr = 2147483646;
+    int maxArr = -2147483647;
+
+    for (int i = 0; i < 10; i++)
+    {
+        if (arr[i] < minArr)
+        {
+            minArr = arr[i];
+        }
+     
+        if (arr[i] > maxArr)
+        {
+            maxArr = arr[i];
+        }
+    }
+
+    std::cout << "Значение минимального элемента = \t" << minArr << std::endl;
+    std::cout << "Значение максимального элемента = \t" << maxArr << std::endl;
+}
