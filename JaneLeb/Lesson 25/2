@@ -1,0 +1,62 @@
+//Задача 2 : 
+// Реализуйте шаблонный класс Pair, 
+// который будет хранить пару значений разных типов.
+// 
+// Добавьте методы для получения первого и второго значения.
+// Создайте объекты класса Pair 
+// с разными типами данных и выведите их значения.
+//
+//Пример работы программы :
+
+//Входные данные :
+//1, 3.14
+//“Hello”, ‘H’
+
+//Выходные данные :
+//First element of int - double pair : 1
+//Second element of str - char pair : H
+//
+
+#include <iostream>
+
+template<class T1, class T2>
+class CPare
+{
+public:
+    CPare( T1 one, T2 two ) : one( one ), two( two )
+    {
+    }
+
+    void setOne( T1 one )
+    {
+        one = one;
+    }
+
+    void setTwo( T2 two )
+    {
+        two = two;
+    }
+
+    T1 getOne() const
+    {
+        return one;
+    }
+
+    T2 getTwo() const
+    {
+        return two;
+    }
+
+private:
+    T1 one;
+    T2 two;
+};
+
+int main()
+{
+    CPare<int, double> numbers( 1, 3.14);
+    std::cout << " First element of int - double pair : " << numbers.getOne() << '\n';   
+
+    CPare<char, std::string> letters( 'H', "Hello" );
+    std::cout << " Second element of str - char pair : " << letters.getTwo() << '\n';
+}
