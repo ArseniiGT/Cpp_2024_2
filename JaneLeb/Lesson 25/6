@@ -1,0 +1,41 @@
+//Задача 6 :
+ 
+// Создайте шаблонную функцию printArray, 
+// которая будет выводить элементы массива 
+// разных типов данных в консоль.
+// Протестируйте функцию на массивах целых чисел и строк.
+
+//Пример работы программы :
+
+//Входные данные :
+//{ 1, 2, 3, 4, 5}
+//{“apple", "banana", "cherry”}
+
+//Выходные данные :
+//1 2 3 4 5
+//apple banana cherry
+#include <iostream>
+
+template <typename T>
+void printArray(T arr[], int size)
+{
+    
+    for (int i = 0; i < size; i++)
+    {
+        std::cout << arr[i] << std::endl;
+    }
+}
+
+int main()
+{
+    int size = 5;
+    int arr[] = { 1, 2, 3, 4, 5 };
+    printArray<int>(arr, size);  
+
+    size = 3;
+    std::string arr2[] = { "apple", "banana", "cherry" };
+    printArray<std::string>(arr2, size);
+}
+
+
+
