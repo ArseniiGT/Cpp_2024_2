@@ -1,0 +1,51 @@
+//Задача 3 : 
+// Напишите шаблонную функцию countOccurrences, 
+// которая будет подсчитывать 
+// количество вхождений элемента 
+// в массив разных типов данных.
+// 
+// Протестируйте функцию на массивах целых чисел и строк.
+//
+//Пример работы программы :
+// 
+//Входные данные :
+//{1, 2, 2, 3, 2, 4}
+//{“apple”, ”banana”, “apple”, “cherry”}
+
+//Выходные данные :
+//Occurrences of 2 in int array : 3
+//Occurrences of apple in str array : 2
+
+#include <iostream>
+
+template <typename T>
+int countOccurrences(T arr[], int size, T value)
+{
+    int sum = 0;
+    for (int i = 0; i < size; i++)
+    {
+        if (arr[i] == value)
+        {
+            sum++;
+        }         
+    }
+    
+    return sum;
+}
+
+int main()
+{
+    int size = 6;
+    int arr[] = { 1, 2, 2, 3, 2, 4 };
+    int value = 2;
+    int res = countOccurrences<int>(arr, size, value);
+    std::cout <<"Occurrences of " << value<< " in int array :" << res << '\n';
+
+    size = 4;
+    std::string arr2[] = { "apple", "banana", "apple", "cherry"};
+    int res2 = countOccurrences<std::string>(arr2, size, "apple");
+    std::cout << "Occurrences of " << "apple" << " in int array :" << res2 << '\n';
+}
+
+
+
