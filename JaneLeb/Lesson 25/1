@@ -1,0 +1,42 @@
+//Задача 1: 
+// Создайте шаблонную функцию average, 
+// которая будет находить среднее арифметическое 
+// элементов массива разных типов данных.
+// Протестируйте функцию на массивах 
+// целых чисел и чисел с плавающей запятой.
+
+//Пример работы программы :
+//Входные данные :
+
+//{1, 2, 3, 4, 5}
+//{1.1, 2.2, 3.3, 4.4}
+
+//Выходные данные :
+//Average of int array : 3
+//Average of double array : 2.75
+
+#include <iostream>
+
+template <typename T>
+T average(T arr[], int size)
+{
+    T sum = 0;
+    for (int i = 0; i < size; i++)
+    {
+        sum += arr[i];
+    }
+    return sum / size;
+}
+
+int main()
+{
+    int size = 5;
+    int arr[] = { 1, 2, 3, 4, 5 };
+    int res = average<int>(arr, size);
+    std::cout << res << '\n';
+
+    size = 4;
+    double arr2[] = { 1.1, 2.2, 3.3, 4.4 };
+    double res2 = average<double>(arr2, size);
+    std::cout << res2 << '\n';
+}
