@@ -1,0 +1,43 @@
+//Задача 2 : 
+// Реализуйте программу для управления задачами 
+// с использованием очереди.
+// Добавьте, обработайте и удалите задачи.
+//
+//Пример работы программы :
+//Входные данные :
+//tasks.push("Task 1");
+//tasks.push("Task 2");
+//tasks.push("Task 3");
+//Выходные данные :
+//Current task : Task 1
+//Next task : Task 2
+
+#include <iostream>
+#include <queue>
+
+int main()
+{
+    std::queue<std::string> tasks;
+    std::string task1 = "Task 1";
+    std::string task2 = "Task 2"; 
+    std::string task3 = "Task 3";
+
+    tasks.push( task1 );
+    std::cout << "Current task : " << task1 << "\n";
+    std::cout << "Next task : " << task2 << "\n";
+    tasks.push( task2 );
+    std::cout << "Current task : " << task2 << "\n";
+    std::cout << "Next task : " << task3 << "\n";
+    tasks.push( task3 );
+    std::cout << "Current task : " << task3 << "\n";
+
+    tasks.pop();
+    std::cout << "Current task : " << task1 << "\n";
+    std::cout << "Next task : " << task2 << "\n";
+    tasks.pop();
+    std::cout << "Current task : " << task2 << "\n";
+    std::cout << "Next task : " << task3 << "\n";
+    tasks.pop();
+    std::cout << "Current task : " << task3 << "\n";
+};
+   
