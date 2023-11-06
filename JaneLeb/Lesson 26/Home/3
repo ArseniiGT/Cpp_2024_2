@@ -1,0 +1,43 @@
+//Задача 3 : 
+// Напишите функцию, 
+// которая подсчитывает количество 
+// уникальных слов в предложении 
+// с использованием множества.
+//
+//Пример работы программы :
+//Входные данные :
+//"this is a test sentence to test unique words"
+//Выходные данные :
+//Number of unique words : 8
+
+#include <iostream>
+#include <set>
+#include <string>
+#include <sstream>
+
+int CountUniqueWords(const std::string& sentence)
+{
+    std::set<std::string> uniqueWords;
+    std::istringstream iss(sentence);
+    std::string word;
+
+    while (iss >> word)
+    {
+        for (char& c : word)
+        {
+            c = tolower(c);
+        }
+        uniqueWords.insert(word);
+    }
+    return uniqueWords.size();
+}
+
+int main()
+{
+    std::string inputSentence = "this is a test sentence to test unique words";
+
+    int uniqueWordsCount = CountUniqueWords(inputSentence);
+
+    std::cout << "Number of unique words: " << uniqueWordsCount << std::endl;
+    return 0;
+}
