@@ -1,0 +1,36 @@
+//Задача 4 : 
+// Создайте отображение для хранения пар 
+// "название товара - цена".
+// Выведите информацию о товаре по его названию.
+//
+//Пример работы программы :
+//Входные данные :
+//products["apple"] = 1.0;
+//products["banana"] = 0.5;
+//products["cherry"] = 2.5;
+// 
+//Выходные данные :
+//Price of banana : $0.5
+
+#include <iostream>
+#include <map>
+#include <string>
+#include <sstream>
+
+int main()
+{
+    setlocale(LC_ALL, "ru");
+    std::map<std::string, double> prises
+        =
+    {
+        std::pair<std::string, double>( "apple", 1.0),
+        std::pair<std::string, double>( "banana", 0.5),
+        std::pair<std::string, double>( "cherry", 2.5)
+    };
+
+    std::cout << "Введите продукт: " << "\n";
+    std::string good;
+    std::cin >> good;
+
+    std::cout << "Цена " << good << " "<< prises.at(good) << "\n";
+}
