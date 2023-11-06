@@ -1,0 +1,34 @@
+//Задача 9 : 
+// Создайте отображение, 
+// представляющее словарь перевода слов 
+// с английского на французский.
+// Выведите перевод заданного слова.
+//
+//Пример работы программы :
+//Входные данные :
+//hello
+//
+//Выходные данные :
+//Translation of hello : bonjour
+
+
+#include <iostream>
+#include <map>
+#include <string>
+#include <sstream>
+
+int main()
+{
+    setlocale(LC_ALL, "ru");
+    std::map<std::string, std::string> dictionary
+        =
+    {
+        std::pair<std::string, std::string>("hello", "bonjour"),
+    };
+
+    std::cout << "Введите слово: " << "\n";
+    std::string word;
+    std::cin >> word;
+
+    std::cout << "Translation of " << word << " - " << dictionary.at(word) << "\n";
+}
