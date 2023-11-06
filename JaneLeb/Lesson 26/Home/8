@@ -1,0 +1,44 @@
+//Задача 8
+// Создайте множество, 
+// чтобы хранить уникальные имена пользователей.
+// Проверьте, содержит ли множество конкретное имя.
+//
+//Пример работы программы :
+//Входные данные :
+//uniqueNames.insert("Alice");
+//uniqueNames.insert("Bob");
+//uniqueNames.insert("Charlie");
+//
+//std::string nameToCheck = "Alice";
+//
+//Выходные данные :
+//Alice is in the set.
+
+#include <iostream>
+#include <vector>
+#include <unordered_set>
+
+int main()
+{
+    std::unordered_set<std::string> uniqueNames;
+
+    uniqueNames.insert("Alice");
+    uniqueNames.insert("Bob");
+    uniqueNames.insert("Charlie");
+
+    std::string nameToCheck = "Alice";
+
+    if (uniqueNames.find(nameToCheck) != uniqueNames.end())
+    {
+        std::cout << nameToCheck << " is in the set." << "\n";
+    }
+    else
+    {
+        std::cout << nameToCheck << " is not in the set." << "\n";
+    }
+
+};
+
+
+
+
