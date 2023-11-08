@@ -1,0 +1,61 @@
+// Задача 11 : 
+// Создайте класс Subscriber, 
+// представляющий подписчика на события.
+// У подписчика есть имя и список событий, 
+// на которые он подписан.
+// 
+// Используйте weak_ptr, 
+// чтобы связать подписчика с событиями.
+
+#include <iostream>
+#include <memory>
+#include <vector>
+#include <string>
+
+class CSubscriber;
+class CEvent
+{
+public:
+    std::string EventName;
+    int EventDate;
+
+    //Конструктор класса "продукт"
+    CEvent(std::string EventName, int EventDate) :
+        EventName(EventName), EventDate(EventDate)
+    {
+    }    
+};
+
+class CSubscriber
+{
+public:
+    std::string subscriberName;
+    std::vector<std::weak_ptr<CEvent>> subscriberEvents;
+
+    //Конструктор класса покупатель
+    CSubscriber(std::string customerName, std::shared_ptr<CEvent> event) :
+        subscriberName(customerName)
+    {
+        subscriberEvents.push_back(event);
+    }
+
+    //Метод добавления продукта в список товаров покупателя
+    void AddGoods(std::shared_ptr<CEvent> event)
+    {
+        subscriberEvents.push_back(event);
+        std::cout << event->EventName << std::endl;
+        std::cout << event->EventDate << std::endl;
+    }
+};
+
+int main()
+{
+    std::shared_ptr<CEvent> event1 = std::make_shared<CEvent>("Holiday", 10);
+    std::shared_ptr<CEvent> event2 = std::make_shared<CEvent>("Conference", 12);
+    std::shared_ptr<CEvent> event3 = std::make_shared<CEvent>("Journey", 15);
+
+    std::shared_ptr<CSubscriber> subscriber1 = std::make_shared<CSubscriber>("David", event1);
+    subscriber1->AddGoods(event2);
+    subscriber1->AddGoods(event3);
+}
+
