@@ -1,0 +1,62 @@
+//Задача 12 : 
+// Создайте класс Attribute, 
+// представляющий атрибут объекта.
+// 
+// Создайте класс Object, 
+// который содержит атрибуты.
+// 
+// Используйте weak_ptr, 
+// чтобы представить связь 
+// между объектом и его атрибутами.
+
+#include <iostream>
+#include <memory>
+#include <vector>
+#include <string>
+
+class Object;
+class Attribute
+{
+public:
+    std::string AttributeColor;
+    int Number;
+
+    //Конструктор класса "продукт"
+    Attribute(std::string AttributeColor, int Number) :
+        AttributeColor(AttributeColor), Number(Number)
+    {
+    }
+};
+
+class Object
+{
+public:
+    std::string ObjectName;
+    std::vector<std::weak_ptr<Attribute>> ObjectAttributes;
+
+    //Конструктор класса покупатель
+    Object(std::string customerName, std::shared_ptr<Attribute> attribute) :
+        ObjectName(customerName)
+    {
+        ObjectAttributes.push_back(attribute);
+    }
+
+    //Метод добавления продукта в список товаров покупателя
+    void AddGoods(std::shared_ptr<Attribute> attribute)
+    {
+        ObjectAttributes.push_back(attribute);
+        std::cout << attribute->AttributeColor << std::endl;
+        std::cout << attribute->Number << std::endl;
+    }
+};
+
+int main()
+{
+    std::shared_ptr<Attribute> attribute1 = std::make_shared<Attribute>("Red", 1);
+    std::shared_ptr<Attribute> attribute2 = std::make_shared<Attribute>("Green", 4);
+    std::shared_ptr<Attribute> attribute3 = std::make_shared<Attribute>("Blue", 6);
+
+    std::shared_ptr<Object> object1 = std::make_shared<Object>("Rainbow color numbers", attribute1);
+    object1->AddGoods(attribute2);
+    object1->AddGoods(attribute3);
+}
