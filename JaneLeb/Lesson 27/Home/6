@@ -1,0 +1,51 @@
+//Задача 6 : 
+// Создайте класс Person, 
+// который содержит информацию о человеке, 
+// включая имя и список друзей.
+// Используйте shared_ptr 
+// для управления ссылками на друзей, 
+// чтобы избежать циклических ссылок.
+
+#include <iostream>
+#include<memory>
+#include<string>
+
+class CPerson
+{
+public:
+    CPerson( const std::string& personName, const   std::string& personFriend ) :
+        personName( personName ), personFriend( personFriend )
+    {
+    };
+
+    std::string GetPersonName() const
+    {
+        return personName;
+    }
+
+    std::string GetPersonFriend() const
+    {
+        return personFriend;
+    }
+
+private:
+    std::string personName;
+    std::string personFriend;
+};
+
+int main()
+{
+    std::shared_ptr<CPerson> person1 = std::make_shared<CPerson>("Chebyrashka", "Gena");
+    std::shared_ptr<CPerson> person2 = std::make_shared<CPerson>("Gena", "Chebyrashka");
+    std::shared_ptr<CPerson> person3 = std::make_shared<CPerson>("Shapoklyak", "Gena");
+
+    std::shared_ptr<CPerson> person1Friend = person2;
+    std::shared_ptr<CPerson> person3Friend = person2;
+
+    std::cout << person1->GetPersonName() << std::endl;
+    std::cout << person1->GetPersonFriend() << std::endl;
+    std::cout << person2->GetPersonName() << std::endl;
+    std::cout << person2->GetPersonFriend() << std::endl;
+    std::cout << person3->GetPersonName() << std::endl;
+    std::cout << person3->GetPersonFriend() << std::endl;
+}
