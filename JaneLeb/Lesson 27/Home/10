@@ -1,0 +1,44 @@
+// Задача 10: 
+// Создайте базовый класс Plugin, 
+// который представляет плагин 
+// с определенной функциональностью. 
+// Создайте производные классы,
+// представляющие конкретные плагины.
+// Используйте shared_ptr 
+// для управления плагинами и вызова их функциональности.
+
+//10 task
+
+#include <memory>
+#include <iostream>
+
+class Plugin {
+public:
+    virtual void Run() const = 0;
+};
+
+class PluginA : public Plugin {
+public:
+    void Run() const override {
+        std::cout << "Plugin A стартанул..." << std::endl;
+    }
+};
+
+class PluginB : public Plugin {
+public:
+    void Run() const override {
+        std::cout << "Plugin B стартанул..." << std::endl;
+    }
+};
+
+int main() {
+    setlocale(LC_ALL, "ru");
+    std::shared_ptr<Plugin> pluginA = std::make_shared<PluginA>();
+    std::shared_ptr<Plugin> pluginB = std::make_shared<PluginB>();
+
+    pluginA->Run();
+    pluginB->Run();
+
+    return 0;
+}
+
