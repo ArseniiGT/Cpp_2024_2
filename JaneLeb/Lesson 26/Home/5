@@ -1,0 +1,49 @@
+//Задача 5: 
+// Реализуйте калькулятор 
+// с обратной польской записью, 
+// используя стек.
+#include <iostream>
+#include <stack>
+#include <string>
+#include <sstream>
+
+int EvaluateRPN(const std::string& expression) {
+    std::stack<int> numbers;
+    std::string token;
+    std::istringstream iss(expression);
+
+    while (iss >> token) {
+        if (isdigit(token[0])) {
+            numbers.push(std::stoi(token));
+        }
+        else
+        {
+            int num2 = numbers.top();
+            numbers.pop();
+            int num1 = numbers.top();
+            numbers.pop();
+
+            if (token == "+") numbers.push(num1 + num2);
+            else if (token == "-") numbers.push(num1 - num2);
+            else if (token == "*") numbers.push(num1 * num2);
+            else if (token == "/") {
+                if (num2 == 0) {
+                    std::cout << "Ошибка! Деление на 0!\n";
+                }
+                else {
+                    numbers.push(num1 / num2);
+                }
+            }
+        }
+    }
+    return numbers.top();
+}
+
+int main() {
+    setlocale(LC_ALL, "ru");
+    std::string expressionRPN = "6 9 * 19 +";
+
+    std::cout << "Результат = " << EvaluateRPN(expressionRPN) << std::endl;
+
+    return 0;
+}
