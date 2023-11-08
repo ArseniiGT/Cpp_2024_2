@@ -1,0 +1,23 @@
+//Задача 6: 
+// Используя список, 
+// создайте историю браузера, 
+// сохраняющую посещенные URL.
+
+#include <iostream>
+#include <list>
+#include <string>
+int main() {
+    setlocale(LC_ALL, "ru");
+
+    std::list<std::string> history;
+
+    history.push_back("wiki.org");
+    history.push_back("hh.ru");
+    history.push_back("learn.microsoft.com");
+
+    std::cout << "История посещения: " << std::endl;
+    for (const std::string& url : history) {
+        std::cout << url << std::endl;
+    }
+    return 0;
+}
