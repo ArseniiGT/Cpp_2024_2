@@ -1,0 +1,63 @@
+//Задача 9 : 
+// Создайте класс Event, 
+// представляющий событие 
+// с названием и датой.
+// Создайте класс EventManager, 
+// который будет хранить список событий 
+// с использованием shared_ptr.
+// Реализуйте добавление 
+// и вывод информации о событиях.
+
+#include <iostream>
+#include<memory>
+#include<string>
+#include <list>
+
+class CEvent
+{
+public:
+    CEvent( const std::string& eventName, int eventDate ) :
+        eventName( eventName ), eventDate( eventDate )
+    {
+    }
+
+    std::string GetEventName() const
+    {
+        return eventName;
+    }
+
+    int GetEventDate() const
+    {
+        return eventDate;
+    }
+
+private:
+    const std::string eventName;
+    const int eventDate;
+};
+
+class CEventManager
+{
+public:
+    std::list<std::shared_ptr<const CEvent>> EventList;
+
+    CEventManager( const std::shared_ptr<CEvent>& event )
+    {
+        EventList.push_back( event );
+    }
+};
+
+int main()
+{
+    std::shared_ptr<CEvent> event1 = std::make_shared<CEvent>( "New Year", 1 );
+    std::shared_ptr<CEvent> event2 = std::make_shared<CEvent>( "Christmas", 7 );
+    std::shared_ptr<CEvent> event3 = std::make_shared<CEvent>( "Baptism", 19 );
+    CEventManager January{ event1 };
+    January.EventList.push_back( event2 );
+    January.EventList.push_back( event3 );
+
+    for ( auto& event : January.EventList ) {
+        std::cout << event->GetEventName() << std::endl;
+        std::cout << event->GetEventDate() << std::endl;
+    }
+}
