@@ -1,0 +1,46 @@
+// Задача 4: 
+// Создайте класс Book, 
+// который представляет книгу с названием. 
+// Создайте shared_ptr на объект Book 
+// и передайте его в функцию, 
+// которая будет использовать книгу.
+
+#include <iostream>
+#include<memory>
+#include<string>
+
+class CBook
+{
+public:
+    
+    CBook( const std::string& BookName, const std::string& BookText ) : 
+        bookName( BookName ), bookText( BookText )
+    {
+    };
+
+    std::string GetBookName() const
+    {
+        return bookName;
+    }
+
+    std::string GetBookText() const
+    {
+        return bookText;
+    }
+
+private:
+    std::string bookName;
+    std::string bookText;
+};
+
+int main()
+{    
+    std::shared_ptr<CBook> book1 = std::make_shared<CBook> ( "First program text", "Hello world!" );
+    std::shared_ptr<CBook> book2 = book1; // Ресурс разделяется 
+    std::cout << book1->GetBookName() << std::endl;
+    std::cout << book2->GetBookText() << std::endl; 
+
+
+}
+
+
