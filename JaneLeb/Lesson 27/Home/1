@@ -1,0 +1,43 @@
+// Задача 1: 
+// Создайте класс Car, 
+// который представляет автомобиль. 
+// У автомобиля есть марка и год выпуска. 
+// Создайте unique_ptr, 
+// который будет владеть объектом Car. 
+// Выведите информацию о машине.
+
+#include <iostream>
+#include <string>
+
+class Ccar
+{
+public:
+    Ccar(std::string brand, int year) : brand(brand), year(year)
+    {
+    };
+    ~Ccar()
+    {
+    };
+
+    void SetCar(std::string _brand, int _year)
+    {
+        brand = _brand;
+        year = _year;
+    }
+
+    void Show()
+    {
+        std::cout << brand << " - " << year;
+    }
+
+private:
+    std::string brand;
+    int year;
+};
+
+int main()
+{
+    std::unique_ptr<Ccar> car1 = std::make_unique<Ccar>("Porsche", 10);
+    car1->Show();
+}
+
