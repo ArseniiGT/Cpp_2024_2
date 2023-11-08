@@ -1,0 +1,40 @@
+// Задача 3: 
+// Создайте класс Resource, 
+// который представляет 
+// некоторый ресурс 
+// (например, сетевое соединение или файл). 
+// Используйте std::unique_ptr, 
+// чтобы гарантировать корректное 
+// освобождение ресурса при завершении программы.
+
+#include <iostream>
+#include <memory>
+#include <WinSock2.h>
+#include <WS2tcpip.h>
+#include <stdio.h>
+#include <vector>
+
+#pragma comment(lib, "Ws2_32.lib")
+
+class CResource
+{
+public:
+
+    SOCKET ServSock;
+    
+    CResource() 
+    {
+        SOCKET ServSock= socket(AF_INET, SOCK_STREAM, 0);
+    }
+    void Connected()
+    {
+        std::cout << ServSock << " Is conneced!\n";
+    }
+};
+
+int main()
+{
+    std::unique_ptr<CResource> uniqueResource = std::make_unique<CResource>();
+    uniqueResource->Connected();
+}
+
