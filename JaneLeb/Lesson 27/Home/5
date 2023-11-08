@@ -1,0 +1,53 @@
+//Задача 5: 
+// Создайте класс Student, 
+// который представляет студента 
+// с именем и возрастом.
+// Используйте shared_ptr 
+// для создания списка студентов 
+// и добавьте несколько студентов.
+// Выведите информацию о каждом студенте.
+
+#include <iostream>
+#include<memory>
+#include<string>
+
+class CStudent
+{
+public:
+    CStudent(const std::string& studentName, int studentAge) :
+        studentName( studentName ), studentAge(studentAge)
+    {
+    };
+
+    std::string GetStudentName() const
+    {
+        return studentName;
+    }
+
+    int GetStudentAge() const
+    {
+        return studentAge;
+    }
+
+private:
+    std::string studentName;
+    int studentAge;
+};
+
+int main()
+{
+    std::shared_ptr<CStudent> student1 = std::make_shared<CStudent>("Chebyrashka", 12);  
+    std::shared_ptr<CStudent> student2 = std::make_shared<CStudent>("Gena", 35 );
+
+    std::cout << student1->GetStudentName() << std::endl;
+    std::cout << student1->GetStudentAge() << std::endl;
+    std::cout << student2->GetStudentName() << std::endl;
+    std::cout << student2->GetStudentAge() << std::endl;
+
+    std::shared_ptr<CStudent> student3 = std::make_shared<CStudent>("Shapoklyak", 60);
+    std::shared_ptr<CStudent> student4 = student3;
+
+    std::cout << student4->GetStudentName() << std::endl;
+    std::cout << student4->GetStudentAge() << std::endl;
+
+}
