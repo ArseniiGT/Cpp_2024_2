@@ -1,0 +1,64 @@
+//Задача 7 : 
+// Создайте класс Node, 
+// представляющий узел дерева.
+// Используйте weak_ptr, 
+// чтобы представить 
+// родительскую связь между узлами.
+
+//Использование weak_ptr для предотвращения циклических ссылок 
+#include <iostream>
+#include <memory>
+#include <vector>
+
+class Node;
+class Edge 
+{
+public:
+	// Конструктор Edge (ребро) принимает shared_ptr на Node в качестве цели
+	Edge( const std::shared_ptr<Node>& target ) : target_( target ) 
+	{
+	} 
+private:
+	std::weak_ptr<Node> target_; 
+	// Используем weak_ptr для избежания циклических ссылок
+};
+
+class Node
+{
+public:
+	Node(const std::string& data) : data_(data)
+	{
+	}
+
+	// Метод для добавления ребра (Edge) к узлу
+	void AddEdge(const std::shared_ptr<Edge>& edge)
+	{
+		edges_.push_back(edge);
+	}
+
+private:
+	std::string data_;
+	std::vector<std::shared_ptr<Edge>> edges_; // Вектор для хранения ребер узла
+};
+
+
+int main() 
+{
+	// Создание двух shared_ptr на узлы Node с разными данными
+	std::shared_ptr<Node> node1 = std::make_shared<Node>( "Node 1" ); 	
+	std::shared_ptr<Node> node2 = std::make_shared<Node>( "Node 2" );
+
+	// Создание двух shared_ptr на ребра Edge с указанием соответствующего узла - цели
+	std::shared_ptr<Edge> edge1 = std::make_shared<Edge>( node2 ); 	
+	std::shared_ptr<Edge> edge2 = std::make_shared<Edge>( node1 );
+
+	// Добавление ребер к узлам
+	node1->AddEdge( edge1 ); 
+	std::cout << node1 << std::endl;
+	node2->AddEdge( edge2 );
+	std::cout << node2 << std::endl;
+
+	// Программа завершается, ресурсы (узлы и ребра) будут автоматически освобождены
+	return 0; 
+}
+
