@@ -2,9 +2,11 @@
 // Создайте класс Student, 
 // который представляет студента 
 // с именем и возрастом.
+// 
 // Используйте shared_ptr 
 // для создания списка студентов 
 // и добавьте несколько студентов.
+// 
 // Выведите информацию о каждом студенте.
 
 #include <iostream>
@@ -19,7 +21,7 @@ public:
     {
     };
 
-    std::string GetStudentName() const
+    const std::string& GetStudentName() const
     {
         return studentName;
     }
@@ -30,8 +32,8 @@ public:
     }
 
 private:
-    std::string studentName;
-    int studentAge;
+    const std::string studentName;
+    const int studentAge;
 };
 
 int main()
