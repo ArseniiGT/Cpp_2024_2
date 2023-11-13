@@ -1,0 +1,75 @@
+// Реестр фигур: 
+// Создайте массив указателей 
+// на объекты Shape и 
+// используйте полиморфизм 
+// для вычисления и вывода 
+// общей площади всех фигур в реестре.
+
+#include <iostream>
+#include <vector>
+
+class Shape 
+{
+public:   
+  virtual ~Shape() = default;
+
+  virtual double SquareShape() = 0;
+};
+
+class Square : public Shape
+{
+public:
+    double length;
+    double width;
+
+    Square(double length, double width) : length(length), width(width){}    
+
+    double SquareShape() override
+    {
+        return length*width;
+    }
+};
+
+class Circle : public Shape
+{
+public:
+    double radius;
+
+    Circle(double radius) : radius(radius) {}  
+
+  double SquareShape() override
+  {
+    return 3.14 * radius*radius;
+  }
+};
+
+class Triangle : public Shape
+{
+public:
+    double length;
+    double width;
+
+    Triangle(double length, double width) : length(length), width(width) {}
+
+    double SquareShape() override
+    {
+        return 1/2 * length * width;
+    }
+};
+
+int main() 
+{
+    std::vector<Shape*> F = { new Square(2,3), new Triangle(3,7), new Circle(5)};
+
+    double TotalArea = 0.0;
+    for (auto x : F)
+    {
+        TotalArea += x->SquareShape();
+    }
+
+    for (const auto x : F)
+    {
+        delete x;
+    }  
+}
+
