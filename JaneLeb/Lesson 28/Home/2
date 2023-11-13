@@ -1,0 +1,259 @@
+// Банковский сервис: 
+// Создайте массив указателей на 
+// объекты BankAccount и 
+// используйте полиморфизм 
+// для выполнения операции снятия средств 
+// на всех счетах.
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//h файл
+
+#pragma once
+#include <string>
+
+//Класс банка с информацией о счетах
+
+class CBrass
+{
+public:
+	//Конструктор
+	CBrass(const std::string& _customerName = "Nullbody",
+		long _accountNumder = -1,
+		double _balans = 0.0);
+	//Виртуальный деструктор
+	virtual ~CBrass(){}
+
+	void SetDepozit( double amt ); //сеттер для депозита (вносимые средства)
+	double GetBalans() const; //геттер для балланса
+
+	virtual void Withdraw( double amt ); //Снимаемые средства
+	virtual void ViewAcct() const;     //Вывод информации об аккаунте
+		
+private:
+	std::string customerName; //имя клиента
+	long accountNumder;		  //номер счета
+	double balans;			  //балланс счета
+};
+
+//Класс клиента с информацией о счете
+
+class CBrassPlus: public CBrass
+{
+public:
+	//Конструктор
+	CBrassPlus(const std::string& customerName = "Nullbody",
+		long accountNumder = -1,
+		double balans = 0.0,
+		double maxLoan = 500,
+		double rate = 0.11125);
+
+	CBrassPlus(const CBrass& ba,
+		double _maxLoan,
+		double _rate);
+
+	virtual void Withdraw( double amt ); //Отозванные средства
+	virtual void ViewAcct() const;     //Вывод информации об аккаунте
+
+	void ResetMax( double m ) //изменение суммы максимального заема
+	{
+		maxLoan = m;
+	}
+	void ResetRate( double r )//изменение максимальной ставки
+	{
+		rate = r;
+	}
+	void ResetOwes()//изменение суммы долга
+	{
+		owesBank = 0;
+	}
+
+private:
+	double maxLoan; //сумма максимального заема
+
+	double rate;    //ставка
+	double owesBank;//сумма долга банку
+};
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//cpp файл
+
+#include "Brass_h.h"
+#include <iostream>
+#include <string>
+
+//Методы форматирования
+typedef std::ios_base::fmtflags format;
+typedef std::streamsize precis;
+format setFormat();
+void restore(format f, precis p);
+
+///////////////////////////////////////////////////////////////////////////
+//КЛАСС ИНФОРМАЦИИ БАНКА CBrass
+
+//Конструктор
+CBrass::CBrass(const std::string& _customerName,
+	long _accountNumder, double _balans)
+{
+	customerName = _customerName;
+	accountNumder = _accountNumder;
+	balans = _balans;
+}
+
+//Внесение средств
+void CBrass::SetDepozit(double amt)
+{
+	if (amt < 0) {
+		std::cout << " Недоступен.\n"
+			<< "Балланс с отрицательным значением не допускается\n";
+	}
+	else
+	{
+		balans += amt;
+	}
+}
+//Снятие средств
+void CBrass::Withdraw(double amt)
+{
+	format inicialState = setFormat();
+	precis prec = std::cout.precision(2);
+	if(amt < 0) {
+		std::cout << "Снимаемая сумма должна быть положительной.\n";
+	}
+	else if(amt<=balans)
+	{
+		balans -= amt;
+	}
+	else
+	{
+		std::cout << "Снимаемая сумма превышает текущий балланс.\n";
+	}
+	restore(inicialState, prec);
+}
+//Геттер для балланса
+double CBrass::GetBalans() const
+{
+	return balans;
+}
+//Вывод информации об аккаунте
+void CBrass::ViewAcct() const
+{
+	format initialState = setFormat();
+	precis prec = std::cout.precision(2);
+
+	//Вывод информации 
+	std::cout << "Клиент: " << customerName << "\n";
+	std::cout << "Номер счета: " << accountNumder << "\n";
+	std::cout << "Балланс: " << balans << "\n";
+	restore(initialState, prec);
+}
+
+///////////////////////////////////////////////////////////////////////////
+//МЕТОДЫ КЛИЕНТСКОГО АККАУНТА CBrassPlus
+
+CBrassPlus::CBrassPlus(
+	const std::string& _customerName,
+	long _accountNumder,
+	double _balans,
+	double _maxLoan,
+	double _rate) :
+	CBrass(_customerName, _accountNumder, _balans)
+{
+	maxLoan = _maxLoan;
+	owesBank = 0;
+	rate = _rate;
+}
+
+//Конструктор 
+CBrassPlus::CBrassPlus(
+	const CBrass& ba,
+	double _maxLoan,
+	double _rate) :
+	CBrass(ba)
+{
+	maxLoan = _maxLoan;
+	owesBank = 0.0;
+	rate = _rate;
+}
+
+//Переопределение виртуального метода вывода информации
+void CBrassPlus::ViewAcct() const
+{
+	format initialState = setFormat();
+	precis prec = std::cout.precision(2);
+
+	//вывод основной информации
+	CBrass::ViewAcct(); 
+
+	//вывод дополнительной информации
+	std::cout << "Максимальный заем: " << maxLoan << "\n";
+	std::cout << "Долг банку: " << owesBank << "\n";
+	
+	std::cout.precision(3);
+	std::cout << "Процентная ставка: " << 100 * rate << "\n";
+	restore(initialState, prec);
+}
+
+//Переопределение виртуального метода cнимаемых со счета средств
+void CBrassPlus::Withdraw(double amt)
+{
+	format inicialState = setFormat();
+	precis prec = std::cout.precision(2);
+
+	double bal = GetBalans();
+	if (amt < bal) 
+	{
+		CBrass::Withdraw(amt);
+	}
+	else if (amt <= bal + maxLoan - owesBank)
+	{
+		double advance  = bal - amt;
+		owesBank += advance * (1.0 + rate);
+		std::cout << "Аванс банка: " << advance << "\n";
+		std::cout << "Долг банку: " << advance * rate << "\n";
+		SetDepozit(advance);
+		CBrass::Withdraw(amt);
+
+	}
+	else
+	{
+		std::cout << "Предел кредита превышен. Операция преостановлена.\n";
+	}
+	restore(inicialState, prec);
+}
+
+//Установка формата c фиксированной точкой и возврат предыдущих настроек
+format setFormat()
+{
+	return std::cout.setf( std::ios_base::fixed,
+		std::ios_base::floatfield );
+}
+
+//Возврат формата и точности
+void restore(format f, precis p)
+{
+	std::cout.setf(f, std::ios_base::floatfield);
+	std::cout.precision(p);
+};
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//main
+
+#include <iostream>
+#include "Brass_h.h"
+
+int main()
+{
+	setlocale(LC_ALL, "ru");
+	CBrass Piggy("Procentol Piggy", 381299, 4000.00);
+	CBrassPlus Hoggy("Horratio Hogg", 382288, 3000.00);
+
+	Piggy.ViewAcct();
+	std::cout << std::endl;
+
+	Hoggy.ViewAcct();
+	std::cout << std::endl;
+
+	std::cout << "Ежику выдано 1000 карбованцев\n";
+	Hoggy.SetDepozit(1000.00);
+	std::cout << "Новый балланс Ежика: " << Hoggy.GetBalans() << std::endl;   
+}
+
+
