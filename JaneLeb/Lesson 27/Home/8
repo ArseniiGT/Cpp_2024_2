@@ -22,43 +22,47 @@ class CProduct
 {
 public:
     //Конструктор класса "продукт"
-    CProduct( std::string prodactName, int prodactPrise ) : 
-        prodactName( prodactName ), prodactPrise( prodactPrise )       
+    CProduct(const std::string& productName, int productPrice ) :
+        ProductName(productName), ProductPrice( productPrice )
+    {
+    }
+
+    CProduct(const CProduct& p):ProductName(p.ProductName), ProductPrice(p.ProductPrice)
     {
     }
 
 //private:
-    std::string prodactName;
-    int prodactPrise;   
+    const std::string ProductName;
+    const int ProductPrice;
 };
 
 class CCustomer
 {
 public:
-    std::string customerName;
-    std::vector<std::weak_ptr<CProduct>> customerGoods;
-
-    //Конструктор класса покупатель
-    CCustomer( std::string customerName, std::shared_ptr<CProduct> good) :
-        customerName( customerName )
+      //Конструктор класса покупатель
+    CCustomer( const std::string& customerName, std::shared_ptr<CProduct> good ) :
+        CustomerName( customerName )
     {
-        customerGoods.push_back(good);
+        CustomerGoods.push_back( good );
     }
 
     //Метод добавления продукта в список товаров покупателя
     void AddGoods( std::shared_ptr<CProduct> good)
     {
-        customerGoods.push_back( good );
-        std::cout << good->prodactName << std::endl;
-        std::cout << good->prodactPrise << std::endl;
-    }        
+        CustomerGoods.push_back( good );
+        std::cout << good->ProductName << std::endl;
+        std::cout << good->ProductPrice << std::endl;
+    }   
+
+    const std::string CustomerName;
+    std::vector<std::weak_ptr<CProduct>> CustomerGoods;
 };
 
 int main()
 {
-    std::shared_ptr<CProduct> product1 = std::make_shared<CProduct>("Juice", 10);
+    auto product1 = std::make_shared<CProduct>("Juice", 10);
     std::shared_ptr<CProduct> product2 = std::make_shared<CProduct>("Ice cream", 12);
-    std::shared_ptr<CProduct> product3 = std::make_shared<CProduct>("Сhocolate", 15);
+    std::shared_ptr<CProduct> product3 = std::make_shared<CProduct>("Chocolate", 15);
 
     std::shared_ptr<CCustomer> сustomer1 = std::make_shared<CCustomer>("David", product1);
     сustomer1->AddGoods(product2);
