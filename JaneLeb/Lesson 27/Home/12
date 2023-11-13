@@ -14,14 +14,14 @@
 #include <vector>
 #include <string>
 
-class Object;
+
 class Attribute
 {
 public:
     std::string AttributeColor;
     int Number;
 
-    //Конструктор класса "продукт"
+    //Конструктор 
     Attribute(std::string AttributeColor, int Number) :
         AttributeColor(AttributeColor), Number(Number)
     {
@@ -34,15 +34,14 @@ public:
     std::string ObjectName;
     std::vector<std::weak_ptr<Attribute>> ObjectAttributes;
 
-    //Конструктор класса покупатель
-    Object(std::string customerName, std::shared_ptr<Attribute> attribute) :
+    //Конструктор 
+    Object( std::string customerName ) :
         ObjectName(customerName)
     {
-        ObjectAttributes.push_back(attribute);
     }
 
-    //Метод добавления продукта в список товаров покупателя
-    void AddGoods(std::shared_ptr<Attribute> attribute)
+    //Метод добавления 
+    void AddAttribute(std::shared_ptr<Attribute> attribute)
     {
         ObjectAttributes.push_back(attribute);
         std::cout << attribute->AttributeColor << std::endl;
@@ -56,7 +55,7 @@ int main()
     std::shared_ptr<Attribute> attribute2 = std::make_shared<Attribute>("Green", 4);
     std::shared_ptr<Attribute> attribute3 = std::make_shared<Attribute>("Blue", 6);
 
-    std::shared_ptr<Object> object1 = std::make_shared<Object>("Rainbow color numbers", attribute1);
-    object1->AddGoods(attribute2);
-    object1->AddGoods(attribute3);
+    std::shared_ptr<Object> object1 = std::make_shared<Object>("Rainbow color numbers");
+    object1->AddAttribute(attribute2);
+    object1->AddAttribute(attribute3);
 }
