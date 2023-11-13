@@ -1,0 +1,56 @@
+//Задача 5.
+// Транспортный флот: 
+// Создайте массив указателей 
+// на объекты Vehicle и 
+// используйте полиморфизм 
+// для запуска двигателя 
+// каждого транспортного средства.
+
+#include <iostream>
+#include <vector>
+
+class Vehicle {
+public:
+    virtual ~Vehicle() = default;
+    virtual void Move() = 0; 
+};
+
+class Car : public Vehicle 
+{
+public:
+    virtual void Move() override 
+    {
+    std::cout << "Автомобиль запустил двигатель. " << std::endl;
+    }
+};
+
+class Bicycle : public Vehicle
+{
+public:
+    virtual void Move() override 
+    {
+    std::cout << "Велосипед  запустил двигатель. " << std::endl;
+    }
+};
+
+class Bus : public Vehicle 
+{
+public:
+    virtual void Move() override 
+    {
+    std::cout << "Автобус запустил двигатель. " << std::endl;
+    }
+};
+
+int main() 
+{
+    setlocale( LC_ALL, "ru" );
+    std::vector<std::unique_ptr<Vehicle>> transportFleet;
+    transportFleet.push_back( std::make_unique<Car>() );
+    transportFleet.push_back( std::make_unique<Bicycle>() );
+    transportFleet.push_back( std::make_unique<Bus>() );
+
+    for( const std::unique_ptr<Vehicle>& x : transportFleet ) {
+        x->Move();
+    }
+}
