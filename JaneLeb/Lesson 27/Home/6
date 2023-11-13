@@ -29,8 +29,8 @@ public:
     }
 
 private:
-    std::string personName;
-    std::string personFriend;
+    const std::string personName;
+    const std::string personFriend;
 };
 
 int main()
@@ -49,3 +49,4 @@ int main()
     std::cout << person3->GetPersonName() << std::endl;
     std::cout << person3->GetPersonFriend() << std::endl;
 }
+
