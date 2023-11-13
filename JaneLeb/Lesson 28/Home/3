@@ -1,0 +1,110 @@
+// Задача 3. 
+// Географический тур: 
+// Создайте массив указателей на 
+// объекты GeographicObject и 
+// используйте полиморфизм 
+// для отображения местоположения 
+// каждого объекта.
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <memory>
+
+//Базовый класс географических объектов
+class CGeographicObject
+{
+public:
+    //Конструктор
+    CGeographicObject( double x, double y, const std::string& objectName ):
+        x( x ), y( y ), objectName( objectName ) {}
+    //Деструктор
+    virtual ~CGeographicObject() = default;
+
+    //Геттеры для членов базового класса
+    double getX() const { return x; }
+    double getY() const { return y; }
+    const std::string& getObjectName() const { return objectName; }
+
+    //Виртуальный метод показа информации
+    virtual void ShowPlace() const = 0;
+
+private:
+    const double x; //координаты широты
+    const double y; //координаты долготы
+    const std::string objectName; //название объекта
+};
+ 
+//Класс наследник - реки
+class CRiver : public CGeographicObject
+{
+public:
+    //Конструктор 
+    CRiver( double x,
+        double y,
+        const std::string& objectName,
+        double xSource,
+        double ySource,
+        double xMouth,
+        double yMouth ) :
+        CGeographicObject( x, y, objectName ),
+        xSource( xSource ),
+        ySource( ySource ),
+        xMouth( xMouth ),
+        yMouth( yMouth ) 
+    {}
+
+    //Виртуальный метод показа информации
+    virtual void ShowPlace() const override
+    {
+        std::cout << "\n" << "Река - " << getObjectName() << "\n"
+            << "Координаты центр: " << getX() << " с.ш. " << " " << getY() << " в.д. " << "\n"
+            << "Координаты исток: " << xSource << " с.ш. " << " " << ySource << " в.д. " << "\n"
+            << "Координаты устье: " << xMouth << " с.ш. " << " " << yMouth << " в.д. " << "\n";
+    }
+
+private:
+    const double xSource; //Координаты устья реки
+    const double ySource; 
+    const double xMouth;  //Координаты русла реки
+    const double yMouth;  
+};
+
+//Класс наследник - город
+class CCity : public CGeographicObject
+{
+public:
+    //Конструктор 
+    CCity( double x,
+        double y,
+        const std::string& objectName,
+        double square ) :
+        CGeographicObject( x, y, objectName ),
+        square( square )
+    {}
+
+    //Виртуальный метод показа информации
+    virtual void ShowPlace() const override
+    {
+        std::cout << "\n" << "Город - " << getObjectName() << "\n"
+            << "Координаты центр: " << getX() << " с.ш. " << " " << getY() << " в.д. " << "\n"
+            << "Площадь: " << square << " км. кв " << "\n";
+    }
+
+private:
+    const double square; //Площадь города
+};
+
+int main()
+{
+    setlocale( LC_ALL, "ru" );
+
+    std::vector<std::unique_ptr<CGeographicObject>> joney;
+    joney.push_back( std::make_unique<CCity>( 45.11, 5.43, "Гренобль", 18.44 ) );
+    joney.push_back( std::make_unique<CRiver>( 56.07, 47.14, "Волга", 57.32, 32.28, 45.41, 47.51 ) );
+   
+    for( const std::unique_ptr<CGeographicObject>& x : joney )
+    {
+        x->ShowPlace();
+    }
+}
