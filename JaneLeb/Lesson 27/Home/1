@@ -1,43 +1,49 @@
-// Задача 1: 
-// Создайте класс Car, 
-// который представляет автомобиль. 
-// У автомобиля есть марка и год выпуска. 
-// Создайте unique_ptr, 
-// который будет владеть объектом Car. 
-// Выведите информацию о машине.
+// Задача 4: 
+// Создайте класс Book, 
+// который представляет книгу с названием. 
+// 
+// Создайте shared_ptr на объект Book 
+// и передайте его в функцию, 
+// которая будет использовать книгу.
 
 #include <iostream>
-#include <string>
+#include<memory>
+#include<string>
 
-class Ccar
+class CBook
 {
 public:
-    Ccar(std::string brand, int year) : brand(brand), year(year)
-    {
-    };
-    ~Ccar()
+    
+    CBook( const std::string& BookName, const std::string& BookText ) : 
+        bookName( BookName ), bookText( BookText )
     {
     };
 
-    void SetCar(std::string _brand, int _year)
+    std::string GetBookName() const
     {
-        brand = _brand;
-        year = _year;
+        return bookName;
     }
 
-    void Show()
+    std::string GetBookText() const
     {
-        std::cout << brand << " - " << year;
+        return bookText;
     }
 
 private:
-    const  std::string brand;
-    int year;
+    const  std::string bookName;
+    const std::string bookText;
 };
 
-int main()
+void Show(std::shared_ptr<CBook> book)
 {
-    std::unique_ptr<Ccar> car1 = std::make_unique<Ccar>("Porsche", 10);
-    car1->Show();
+    std::cout << book->GetBookName()<<" " << book->GetBookText() << std::endl;
 }
 
+int main()
+{    
+    std::shared_ptr<CBook> book1 = std::make_shared<CBook> ( "First program text", "Hello world!" );
+    std::shared_ptr<CBook> book2 = book1; // Ресурс разделяется 
+    std::cout << book1->GetBookName() << std::endl;
+    std::cout << book2->GetBookText() << std::endl; 
+    Show(book1);
+}
