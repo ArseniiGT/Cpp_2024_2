@@ -16,11 +16,11 @@ class CSubscriber;
 class CEvent
 {
 public:
-    std::string EventName;
+    const std::string EventName;
     int EventDate;
 
-    //Конструктор класса "продукт"
-    CEvent(std::string EventName, int EventDate) :
+    //Конструктор класса 
+    CEvent(const std::string& EventName, int EventDate) :
         EventName(EventName), EventDate(EventDate)
     {
     }    
@@ -32,15 +32,14 @@ public:
     std::string subscriberName;
     std::vector<std::weak_ptr<CEvent>> subscriberEvents;
 
-    //Конструктор класса покупатель
-    CSubscriber(std::string customerName, std::shared_ptr<CEvent> event) :
+    //Конструктор 
+    CSubscriber(std::string customerName ) :
         subscriberName(customerName)
     {
-        subscriberEvents.push_back(event);
     }
 
-    //Метод добавления продукта в список товаров покупателя
-    void AddGoods(std::shared_ptr<CEvent> event)
+    //Метод добавления 
+    void AddEvent(std::shared_ptr<CEvent> event)
     {
         subscriberEvents.push_back(event);
         std::cout << event->EventName << std::endl;
@@ -50,12 +49,15 @@ public:
 
 int main()
 {
-    std::shared_ptr<CEvent> event1 = std::make_shared<CEvent>("Holiday", 10);
+    std::shared_ptr<CEvent> event1 = std::make_shared<CEvent>("Important day", 10);
     std::shared_ptr<CEvent> event2 = std::make_shared<CEvent>("Conference", 12);
     std::shared_ptr<CEvent> event3 = std::make_shared<CEvent>("Journey", 15);
 
-    std::shared_ptr<CSubscriber> subscriber1 = std::make_shared<CSubscriber>("David", event1);
-    subscriber1->AddGoods(event2);
-    subscriber1->AddGoods(event3);
+    std::shared_ptr<CSubscriber> subscriber1 = std::make_shared<CSubscriber>("David");
+    subscriber1->AddEvent(event1);
+    subscriber1->AddEvent(event2);
+    subscriber1->AddEvent(event3);
 }
+
+
 
